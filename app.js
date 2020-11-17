@@ -7,36 +7,43 @@ async function getTwitterCredentials() {
     return tw_credentails;
 }
 
-const tweet_id = "1326591147834306561";
-(async () => {
+async function getThreadTweetsForTweetId(tweet_id){
     const credentials = await getTwitterCredentials();
     const token = credentials.bearer_token;
 
     let api = new Twitter(token);
     try {
-        // Make request
-        const tweet = await api.getTweetWithConversationID(tweet_id);
+
+        const tweet = await api.getTweetWithTweetId(tweet_id);
         const conversation_id = tweet.data[0].conversation_id;
-        const username = tweet.includes.users[0].username;
+        const root_tweet = await api.getTweetWithTweetId(conversation_id);
 
+        const username = root_tweet.includes.users[0].username;
         const replies = await api.searchTweetsForWithConversationId(conversation_id, username);
-
-        console.log(replies)
-
-        replies.data.forEach(tw => {
-            console.log("================================")
-            console.log(tw)
-        });
-        console.log("================================")
-        replies.includes.media.forEach(tw => {
-            console.log("================================")
-            console.log(tw)
-        });
-
+        const fullThread = [root_tweet, replies]
+        
+        return fullThread;
 
     } catch (e) {
         console.log(e);
-        process.exit(-1);
+        return null;
     }
-    process.exit();
+}
+
+
+(async () => {
+    // const tweet_id = "1326591147834306561";
+    // let fullThread = await getThreadTweetsForTweetId(tweet_id);
+    // console.log(fullThread);
+    // process.exit();
+
+    let fullThread = JSON.parse(await fs.readFile("testThread.json"));
+    // console.log(fullThread);
+
+    let threadText = [fullThread[0].data[0].text];
+    fullThread[1].data.forEach(tweet => {
+        threadText.push(tweet.text);
+    });
+    console.log(threadText)
+
 })();

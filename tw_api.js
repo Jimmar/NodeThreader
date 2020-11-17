@@ -17,13 +17,14 @@ Twitter.prototype.baseGetRequest = async function (endpointURL, params, headers)
     return res.body;
 }
 
-Twitter.prototype.getTweet = async function ({ tweetId, tweetFields = "", expansions = "" }) {
+Twitter.prototype.getTweet = async function ({ tweetId, tweetFields = "", expansions = "", mediaFields = "" }) {
     const endpointURL = `${baseURL}/tweets?ids=`
 
     const params = {
         "ids": Array.isArray(tweetId) ? tweetId.join() : tweetId.toString(),
         "tweet.fields": tweetFields,
-        "expansions": expansions
+        "expansions": expansions,
+        "media.fields": mediaFields
     }
 
     return await this.baseGetRequest(endpointURL, params, this.bearer_headers);
@@ -44,11 +45,12 @@ Twitter.prototype.searchRecentTweets = async function ({ query, tweetFields = ""
 
 // ============================ Core Functions END ============================
 
-Twitter.prototype.getTweetWithConversationID = async function (tweetId) {
+Twitter.prototype.getTweetWithTweetId = async function (tweetId) {
     const params = {
-        tweetId: tweetId,
-        tweetFields: "conversation_id",
-        expansions: "author_id"
+        "tweetId": tweetId,
+        "tweetFields": `created_at,attachments,lang,referenced_tweets,conversation_id`,
+        "expansions": "attachments.media_keys,author_id",
+        "mediaFields": "type,preview_image_url,duration_ms,height,width,url",
     }
 
     let tweet = await this.getTweet(params);
@@ -58,8 +60,8 @@ Twitter.prototype.getTweetWithConversationID = async function (tweetId) {
 Twitter.prototype.searchTweetsForWithConversationId = async function (conversation_id, username) {
     const params = {
         "query": `from:${username} to:${username} conversation_id:${conversation_id}`,
-        "tweetFields": `created_at,attachments,lang,referenced_tweets`,
-        "expansions": "attachments.media_keys",
+        "tweetFields": `created_at,attachments,lang,referenced_tweets,conversation_id`,
+        "expansions": "attachments.media_keys,author_id",
         "mediaFields": "type,preview_image_url,duration_ms,height,width,url",
         "maxResults": 100
     }
