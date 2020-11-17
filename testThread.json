@@ -1,0 +1,191 @@
+[
+    {
+        "data": [
+            {
+                "lang": "en",
+                "author_id": "742143",
+                "created_at": "2020-11-11T18:22:31.000Z",
+                "attachments": {
+                    "media_keys": [
+                        "7_1326589998188081152"
+                    ]
+                },
+                "text": "Maids in Spain have been imprisoned in their employers homes during the pandemic\n \nBBC News has found some live-in cleaners and carers have been kept locked in since the start of the Covid pandemic\n \n“Maria” is just one of many currently trapped\n\n[Thread]\n\nhttps://t.co/nG5TgE3e5R https://t.co/YLiOiIyhzf",
+                "id": "1326591147834306561",
+                "conversation_id": "1326591147834306561"
+            }
+        ],
+        "includes": {
+            "media": [
+                {
+                    "type": "video",
+                    "width": 1280,
+                    "duration_ms": 34640,
+                    "media_key": "7_1326589998188081152",
+                    "preview_image_url": "https://pbs.twimg.com/ext_tw_video_thumb/1326589998188081152/pu/img/egE33Liya-j0VT8o.jpg",
+                    "height": 720
+                }
+            ],
+            "users": [
+                {
+                    "id": "742143",
+                    "name": "BBC News (World)",
+                    "username": "BBCWorld"
+                }
+            ]
+        }
+    },
+    {
+        "data": [
+            {
+                "conversation_id": "1326591147834306561",
+                "text": "Watch the full report by @jeanmackenzie: https://t.co/nG5TgE3e5R https://t.co/IjOIu88ve6",
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1326591281787703297"
+                    }
+                ],
+                "author_id": "742143",
+                "attachments": {
+                    "media_keys": [
+                        "3_1326590992552783885"
+                    ]
+                },
+                "lang": "en",
+                "created_at": "2020-11-11T18:23:04.000Z",
+                "id": "1326591286913208327"
+            },
+            {
+                "conversation_id": "1326591147834306561",
+                "text": "In Spain domestic workers do not have the same legal rights as other workers\n\nThe government has not yet ratified an international treaty that is designed to protect them\n\nhttps://t.co/nG5TgE3e5R https://t.co/Iyise259C9",
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1326591276259618817"
+                    }
+                ],
+                "author_id": "742143",
+                "attachments": {
+                    "media_keys": [
+                        "3_1326590640600342530"
+                    ]
+                },
+                "lang": "en",
+                "created_at": "2020-11-11T18:23:03.000Z",
+                "id": "1326591281787703297"
+            },
+            {
+                "conversation_id": "1326591147834306561",
+                "text": "Most domestic workers come from Latin America and have even fewer rights\n\nThey must be employed in Spain for three years before they are allowed to settle legally\n \n\"Gloria\" was fired at the end of the first lockdown just before the end of her three years\n\nhttps://t.co/nG5TgE3e5R https://t.co/DcpHD6Rm4x",
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1326591235033882624"
+                    }
+                ],
+                "author_id": "742143",
+                "attachments": {
+                    "media_keys": [
+                        "7_1326590601576509441"
+                    ]
+                },
+                "lang": "en",
+                "created_at": "2020-11-11T18:23:01.000Z",
+                "id": "1326591276259618817"
+            },
+            {
+                "conversation_id": "1326591147834306561",
+                "text": "At least 22,000 domestic workers have been fired during the pandemic\n \nThe union that represents these workers says it has heard from almost 100 women who are being kept locked inside homes\n\nhttps://t.co/nG5TgE3e5R https://t.co/jeqiW14XU5",
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1326591203656282112"
+                    }
+                ],
+                "author_id": "742143",
+                "attachments": {
+                    "media_keys": [
+                        "7_1326590285497954308"
+                    ]
+                },
+                "lang": "en",
+                "created_at": "2020-11-11T18:22:51.000Z",
+                "id": "1326591235033882624"
+            },
+            {
+                "conversation_id": "1326591147834306561",
+                "text": "Spain has more domestic workers than any country in Europe\n\nMost of them live with their employers which means they can be more easily exploited\n \n“Isabella” was fired during the first lockdown after being mistreated for months by her employer\n\nhttps://t.co/nG5TgE3e5R https://t.co/mkiYTljnVV",
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1326591147834306561"
+                    }
+                ],
+                "author_id": "742143",
+                "attachments": {
+                    "media_keys": [
+                        "7_1326590126017933313"
+                    ]
+                },
+                "lang": "en",
+                "created_at": "2020-11-11T18:22:44.000Z",
+                "id": "1326591203656282112"
+            }
+        ],
+        "includes": {
+            "media": [
+                {
+                    "type": "photo",
+                    "media_key": "3_1326590992552783885",
+                    "height": 576,
+                    "width": 1024,
+                    "url": "https://pbs.twimg.com/media/Emj_eqlXcA0ugOt.jpg"
+                },
+                {
+                    "type": "photo",
+                    "media_key": "3_1326590640600342530",
+                    "height": 1080,
+                    "width": 1920,
+                    "url": "https://pbs.twimg.com/media/Emj_KLdXYAIp8E4.jpg"
+                },
+                {
+                    "type": "video",
+                    "media_key": "7_1326590601576509441",
+                    "height": 720,
+                    "width": 1280,
+                    "duration_ms": 37080,
+                    "preview_image_url": "https://pbs.twimg.com/ext_tw_video_thumb/1326590601576509441/pu/img/kXSQ1zA1c3pTn7ng.jpg"
+                },
+                {
+                    "type": "video",
+                    "media_key": "7_1326590285497954308",
+                    "height": 720,
+                    "width": 1280,
+                    "duration_ms": 28080,
+                    "preview_image_url": "https://pbs.twimg.com/ext_tw_video_thumb/1326590285497954308/pu/img/rY69OT5poHA5mVAB.jpg"
+                },
+                {
+                    "type": "video",
+                    "media_key": "7_1326590126017933313",
+                    "height": 720,
+                    "width": 1280,
+                    "duration_ms": 55280,
+                    "preview_image_url": "https://pbs.twimg.com/ext_tw_video_thumb/1326590126017933313/pu/img/QarOdXyGOLG7j8eV.jpg"
+                }
+            ],
+            "users": [
+                {
+                    "id": "742143",
+                    "name": "BBC News (World)",
+                    "username": "BBCWorld"
+                }
+            ]
+        },
+        "meta": {
+            "newest_id": "1326591286913208327",
+            "oldest_id": "1326591203656282112",
+            "result_count": 5
+        }
+    }
+]
