@@ -73,7 +73,7 @@ const tweet_id = "1329854762926432257";
 
     // let fullThread = JSON.parse(await fs.readFile(`${FIXTURES}/threadMultiPictures.json`));
     // let fullThread = JSON.parse(await fs.readFile(`${FIXTURES}/threadTextOnly.json`));
-    let fullThread = JSON.parse(await fs.readFile(`${FIXTURES}/threadVideo.json`));
+    let fullThread = JSON.parse(await fs.readFile(`${FIXTURES}/threadMixedMedia.json`));
 
     let mediaibrary = extractMediaFromThread(fullThread);
     let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaibrary));
