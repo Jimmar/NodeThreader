@@ -57,7 +57,7 @@ Twitter.prototype.getTweetWithTweetId = async function (tweetId) {
     return tweet;
 }
 
-Twitter.prototype.searchTweetsForWithConversationId = async function (conversation_id, username) {
+Twitter.prototype.searchUserTweetsWithConversationId = async function (conversation_id, username) {
     const params = {
         "query": `from:${username} to:${username} conversation_id:${conversation_id}`,
         "tweetFields": `created_at,attachments,lang,referenced_tweets,conversation_id`,

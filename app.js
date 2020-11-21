@@ -4,8 +4,8 @@ import Twitter from './tw_api.js';
 const FIXTURES = "tests/fixtures/";
 
 async function getTwitterCredentials() {
-    let keys = await fs.readFile('keys.json');
-    let tw_credentails = JSON.parse(keys)['twitter'];
+    const keys = await fs.readFile('keys.json');
+    const tw_credentails = JSON.parse(keys)['twitter'];
     return tw_credentails;
 }
 
@@ -13,17 +13,16 @@ async function getThreadTweetsForTweetId(tweet_id) {
     const credentials = await getTwitterCredentials();
     const token = credentials.bearer_token;
 
-    let api = new Twitter(token);
+    const api = new Twitter(token);
     try {
-
         const tweet = await api.getTweetWithTweetId(tweet_id);
         const conversation_id = tweet.data[0].conversation_id;
         const rootTweet = conversation_id == tweet.data[0].id ? tweet : await api.getTweetWithTweetId(conversation_id);
 
         const username = rootTweet.includes.users[0].username;
-        const replies = await api.searchTweetsForWithConversationId(conversation_id, username);
+        const replies = await api.searchUserTweetsWithConversationId(conversation_id, username);
 
-        let fullThread = {
+        const fullThread = {
             "data": [...rootTweet.data || [], ...replies?.data?.reverse() || []],
             "includes": {
                 "media": [...rootTweet.includes?.media || [], ...replies?.includes?.media?.reverse() || []],
@@ -43,12 +42,12 @@ async function getThreadTweetsForTweetId(tweet_id) {
 function getMediaForKeys(mediaKeys, media) {
     if (typeof mediaKeys == "undefined" || typeof media == "undefined")
         return [];
-    let mediaInfo = mediaKeys.map((value) => media[value]) || [];
+    const mediaInfo = mediaKeys.map((value) => media[value]) || [];
     return mediaInfo;
 }
 
 function extractMediaFromThread(fullThread) {
-    let mediaList = fullThread.includes?.media || [];
+    const mediaList = fullThread.includes?.media || [];
 
     // convert the list into an object of media keys
     const mediaibrary = mediaList.reduce((obj, item) => (obj[item.media_key] = item, obj), {});
@@ -65,7 +64,6 @@ function cleanTweetObject(tweet, mediaibrary) {
     }
     return cleanedTweet;
 }
-// function extractThreadWithID
 
 const tweet_id = "1329854762926432257";
 
