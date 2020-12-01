@@ -64,7 +64,7 @@ async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
     return fullThread;
 }
 
-function cleanRecursiveThread(thread) {
+export function cleanRecursiveThread(thread) {
     let cleanThread = {
         "data": [],
         "includes": { "media": [], "users": [] },
