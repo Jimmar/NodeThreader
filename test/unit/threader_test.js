@@ -1,6 +1,6 @@
 import { deepStrictEqual } from "assert";
 import fs from "fs";
-import { cleanRecursiveThread, extractMediaFromThread } from "../../threader.js";
+import { cleanRecursiveThread, extractMediaFromThread } from "../../src/services/threader.js";
 
 const FIXTURES = "test/fixtures";
 

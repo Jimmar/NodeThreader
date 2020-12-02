@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs';
-import Twitter from './tw_api.js';
+import Twitter from './core/tw_api.js';
 
 
 async function getTwitterCredentials() {
