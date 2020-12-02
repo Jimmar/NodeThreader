@@ -3,7 +3,7 @@ import Twitter from './core/tw_api.js';
 
 
 async function getTwitterCredentials() {
-    const keys = await fs.readFile('keys.json');
+    const keys = await fs.readFile('src/config/keys.json');
     const tw_credentails = JSON.parse(keys)['twitter'];
     return tw_credentails;
 }
