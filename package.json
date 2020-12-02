@@ -1,6 +1,7 @@
 {
     "type": "module",
     "dependencies": {
+        "express": "^4.17.1",
         "needle": "^2.5.2"
     },
     "scripts": {
