@@ -105,6 +105,7 @@ export function extractMediaFromThread(fullThread) {
 
 export function cleanTweetObject(tweet, mediaibrary) {
     //TODO clean up the text removing tweet urls if needed
+    //TODO add tests
     const tweetText = tweet.text;
     const media = getMediaForKeys(tweet.attachments?.media_keys, mediaibrary);
     const cleanedTweet = {
