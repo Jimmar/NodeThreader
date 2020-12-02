@@ -5,7 +5,8 @@
         "needle": "^2.5.2"
     },
     "scripts": {
-        "test": "mocha ./test/unit"
+        "test": "mocha ./test/unit",
+        "start": "node app.js"
     },
     "devDependencies": {
         "mocha": "^8.2.1"
