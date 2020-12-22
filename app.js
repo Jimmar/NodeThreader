@@ -14,8 +14,8 @@ app.get("/api/thread/:thread_id", async (req, res) => {
     if (fullThread === undefined)
         return res.send(`No thread for id ${thread_id}`);
 
-    let mediaibrary = extractMediaFromThread(fullThread);
-    let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaibrary));
+    let medialibrary = extractMediaFromThread(fullThread);
+    let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, medialibrary));
 
     return res.send(JSON.stringify(threadClean));
 
