@@ -1,4 +1,5 @@
 import express from "express";
+import { promises as fs } from 'fs';
 import { cleanTweetObject, extractMediaFromThread, getThreadTweetsForTweetId } from "./src/services/threader.js";
 
 const app = express();
@@ -18,7 +19,6 @@ app.get("/api/thread/:thread_id", async (req, res) => {
     let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
     return res.send(JSON.stringify(threadClean));
-
 })
 
 app.listen(port, () => {
@@ -26,19 +26,20 @@ app.listen(port, () => {
 })
 
 
-
-
 const FIXTURES = "test/fixtures";
-const tweet_id = "1333834585118007300";
+const tweet_id = "1341193051184611331";
 
-// (async () => {
+(async () => {
 
-//     // let fullThread = JSON.parse(await fs.readFile(`${FIXTURES}/threadRecursive.json`));
-//     // fs.writeFile("tests/fixtures/threadRecursiveCleaned.json", JSON.stringify(cleanThread));
+    console.time('getThreadTweetsForTweetIdRecursively')
+    let fullThread = await getThreadTweetsForTweetId(tweet_id);
+    console.timeEnd('getThreadTweetsForTweetIdRecursively')
+
+    await fs.writeFile(`${FIXTURES}/test.json`, JSON.stringify(fullThread));
 
     // let mediaLibrary = extractMediaFromThread(fullThread);
     // let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
-//     console.log(threadClean)
-//     // process.exit();
-// })();
+    // console.log(fullThread)
+    // process.exit();
+})();
