@@ -14,8 +14,8 @@ app.get("/api/thread/:thread_id", async (req, res) => {
     if (fullThread === undefined)
         return res.send(`No thread for id ${thread_id}`);
 
-    let medialibrary = extractMediaFromThread(fullThread);
-    let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, medialibrary));
+    let mediaLibrary = extractMediaFromThread(fullThread);
+    let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
     return res.send(JSON.stringify(threadClean));
 
@@ -36,8 +36,8 @@ const tweet_id = "1333834585118007300";
 //     // let fullThread = JSON.parse(await fs.readFile(`${FIXTURES}/threadRecursive.json`));
 //     // fs.writeFile("tests/fixtures/threadRecursiveCleaned.json", JSON.stringify(cleanThread));
 
-//     let mediaibrary = extractMediaFromThread(fullThread);
-//     let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaibrary));
+    // let mediaLibrary = extractMediaFromThread(fullThread);
+    // let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
 //     console.log(threadClean)
 //     // process.exit();

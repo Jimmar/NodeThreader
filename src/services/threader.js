@@ -4,8 +4,8 @@ import Twitter from './core/tw_api.js';
 
 async function getTwitterCredentials() {
     const keys = await fs.readFile('src/config/keys.json');
-    const tw_credentails = JSON.parse(keys)['twitter'];
-    return tw_credentails;
+    const tw_credentials = JSON.parse(keys)['twitter'];
+    return tw_credentials;
 }
 
 export async function getThreadTweetsForTweetId(tweet_id) {
@@ -99,15 +99,15 @@ export function extractMediaFromThread(fullThread) {
     const mediaList = fullThread.includes?.media || [];
 
     // convert the list into an object of media keys
-    const mediaibrary = mediaList.reduce((obj, item) => (obj[item.media_key] = item, obj), {});
-    return mediaibrary;
+    const mediaLibrary = mediaList.reduce((obj, item) => (obj[item.media_key] = item, obj), {});
+    return mediaLibrary;
 }
 
-export function cleanTweetObject(tweet, mediaibrary) {
+export function cleanTweetObject(tweet, mediaLibrary) {
     //TODO clean up the text removing tweet urls if needed
     //TODO add tests
     const tweetText = tweet.text;
-    const media = getMediaForKeys(tweet.attachments?.media_keys, mediaibrary);
+    const media = getMediaForKeys(tweet.attachments?.media_keys, mediaLibrary);
     const cleanedTweet = {
         "text": tweetText,
         "media": media
