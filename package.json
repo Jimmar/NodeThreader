@@ -2,6 +2,7 @@
     "type": "module",
     "dependencies": {
         "express": "^4.17.1",
+        "mongodb": "^3.6.3",
         "needle": "^2.5.2"
     },
     "scripts": {
