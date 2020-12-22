@@ -1,0 +1,7 @@
+{
+    "mongodb": {
+        "username": "mongoadmin",
+        "password": "mongopassword",
+        "dbname": "nodethreader"
+    }
+}
