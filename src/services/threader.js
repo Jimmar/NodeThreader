@@ -30,7 +30,8 @@ export async function getThreadTweetsForTweetId(tweet_id) {
             "replies_meta": replies?.meta
         };
 
-        return fullThread;
+        const cleanedThread = cleanThread(fullThread);
+        return cleanedThread;
 
     } catch (e) {
         console.log(e);
@@ -48,10 +49,16 @@ export async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
     while (true) {
         try {
             const tweet = await api.getTweetWithTweetId(tweet_id);
+            if (tweet.errors){
+                //TODO handle going over the limit by adding sleep
+                console.log(`Error while getting Tweet with id ${tweet_id}`);
+                console.log(tweet);
+            }
             fullThread.push(tweet);
-            const refTweets = tweet.data[0].referenced_tweets;
-            if (refTweets === undefined)
+            const refTweets = tweet?.data?.[0]?.referenced_tweets;
+            if (refTweets === undefined){
                 break;
+            }
 
             tweet_id = refTweets.find((refTweet) => refTweet?.type == "replied_to")?.id;
 
@@ -60,11 +67,12 @@ export async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
             return null;
         }
     }
-    return fullThread;
+    const cleanedThread = cleanRecursiveThread(fullThread);
+    return cleanedThread;
 }
 
 export function cleanRecursiveThread(thread) {
-    let cleanThread = {
+    let cleanedThread = {
         "data": [],
         "includes": { "media": [], "users": [] },
         "replies_meta": {
@@ -75,17 +83,25 @@ export function cleanRecursiveThread(thread) {
     };
 
     thread.forEach(tweet => {
-        cleanThread.data.push(tweet.data[0]);
-        cleanThread.includes.media.push(...tweet.includes?.media || []);
-        cleanThread.includes.users.push(...tweet.includes?.users || []);
+        cleanedThread.data.push(tweet.data[0]);
+        cleanedThread.includes.media.push(...tweet.includes?.media || []);
+        cleanedThread.includes.users.push(...tweet.includes?.users || []);
     });
 
-    cleanThread.replies_meta.newest_id = cleanThread.data[0].id;
-    cleanThread.data = cleanThread.data.reverse();
-    cleanThread.includes.media = cleanThread.includes.media.reverse();
-    cleanThread.replies_meta.oldest_id = cleanThread.data[0].id;
+    cleanedThread.replies_meta.newest_id = cleanedThread.data[0].id;
+    cleanedThread.data = cleanedThread.data.reverse();
+    cleanedThread.includes.media = cleanedThread.includes.media.reverse();
+    cleanedThread.replies_meta.oldest_id = cleanedThread.data[0].id;
 
-    return cleanThread;
+    cleanedThread = cleanThread(cleanedThread);
+    return cleanedThread;
+}
+
+export function cleanThread(thread){
+    //removes duplicate users
+    thread.includes.users = thread.includes.users.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+    thread.conversation_id = thread.data[0].conversation_id;
+    return thread;
 }
 
 export function getMediaForKeys(mediaKeys, media) {
