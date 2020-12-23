@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { getThreadFromDB, storeDataToDB } from '../helper/dbConnector.js';
 import Twitter from './core/tw_api.js';
 
 
@@ -9,6 +10,12 @@ async function getTwitterCredentials() {
 }
 
 export async function getThreadTweetsForTweetId(tweet_id) {
+    //TODO this is ugly, refactor
+    let cleanedThread = await getThreadFromDB(tweet_id);
+    if (cleanedThread)
+        return cleanedThread;
+    console.log(`Thread for tweet ${tweet_id} doesn't exist in cache, fetching`);
+
     const credentials = await getTwitterCredentials();
     const token = credentials.bearer_token;
     const api = new Twitter(token);
@@ -16,23 +23,38 @@ export async function getThreadTweetsForTweetId(tweet_id) {
     try {
         const tweet = await api.getTweetWithTweetId(tweet_id);
         const conversation_id = tweet.data[0].conversation_id;
+        if (conversation_id != tweet_id) {
+            cleanedThread = await getThreadFromDB(tweet_id);
+            if (cleanedThread)
+                return cleanedThread;
+        }
+
+        console.log(`Thread for conversation ${conversation_id} doesn't exist in cache, fetching`);
         const rootTweet = conversation_id == tweet.data[0].id ? tweet : await api.getTweetWithTweetId(conversation_id);
 
         const username = rootTweet.includes.users[0].username;
         const replies = await api.searchUserTweetsWithConversationId(conversation_id, username);
 
-        const fullThread = {
-            "data": [...rootTweet.data || [], ...replies?.data?.reverse() || []],
-            "includes": {
-                "media": [...rootTweet.includes?.media || [], ...replies?.includes?.media?.reverse() || []],
-                "users": [...rootTweet.includes?.users || [], ...replies?.includes?.users || []]
-            },
-            "replies_meta": replies?.meta
-        };
-
-        const cleanedThread = cleanThread(fullThread);
-        return cleanedThread;
-
+        //if there aren't many replies, most likely need to get tweets recursively
+        if (replies?.data?.length < 2)
+            cleanedThread = await getThreadTweetsForTweetIdRecursively(tweet_id);
+        else {
+            const fullThread = {
+                "data": [...rootTweet.data || [], ...replies?.data?.reverse() || []],
+                "includes": {
+                    "media": [...rootTweet.includes?.media || [], ...replies?.includes?.media?.reverse() || []],
+                    "users": [...rootTweet.includes?.users || [], ...replies?.includes?.users || []]
+                },
+                "replies_meta": replies?.meta
+            };
+            cleanedThread = cleanThread(fullThread);
+            if (cleanedThread) {
+                //TODO don't save threads with single tweets
+                console.log(`Storing thread with conversation ${conversation_id}`);
+                await storeDataToDB(cleanedThread);
+            }
+            return cleanedThread;
+        }
     } catch (e) {
         console.log(e);
         return null;
@@ -40,6 +62,7 @@ export async function getThreadTweetsForTweetId(tweet_id) {
 }
 
 export async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
+    console.log("fetching thread recursively");
     const credentials = await getTwitterCredentials();
     const token = credentials.bearer_token;
     const api = new Twitter(token);
@@ -49,14 +72,14 @@ export async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
     while (true) {
         try {
             const tweet = await api.getTweetWithTweetId(tweet_id);
-            if (tweet.errors){
+            if (tweet.errors) {
                 //TODO handle going over the limit by adding sleep
                 console.log(`Error while getting Tweet with id ${tweet_id}`);
                 console.log(tweet);
             }
             fullThread.push(tweet);
             const refTweets = tweet?.data?.[0]?.referenced_tweets;
-            if (refTweets === undefined){
+            if (refTweets === undefined) {
                 break;
             }
 
@@ -97,7 +120,7 @@ export function cleanRecursiveThread(thread) {
     return cleanedThread;
 }
 
-export function cleanThread(thread){
+export function cleanThread(thread) {
     //removes duplicate users
     thread.includes.users = thread.includes.users.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
     thread.conversation_id = thread.data[0].conversation_id;
@@ -127,6 +150,6 @@ export function cleanTweetObject(tweet, mediaLibrary) {
     const cleanedTweet = {
         "text": tweetText,
         "media": media
-    }
+    };
     return cleanedTweet;
 }
