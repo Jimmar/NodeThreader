@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/thread/:thread_id", async (req, res) => {
+    //TODO this should be calling the api function instead of doing it all on it's own
     const thread_id = req.params?.thread_id;
     const fullThread = await getThreadTweetsForTweetId(thread_id);
     if (fullThread === undefined)
