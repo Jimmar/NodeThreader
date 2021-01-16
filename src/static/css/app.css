@@ -1,0 +1,17 @@
+.container-large-padding {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.avatar-image {
+    border-radius: 50%;
+    width: 124px;
+    height: auto;
+}
+
+.logo-container {
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+}

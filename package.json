@@ -1,16 +1,20 @@
 {
     "type": "module",
     "dependencies": {
+        "bulma": "^0.9.1",
+        "ejs": "^3.1.5",
         "express": "^4.17.1",
         "mongodb": "^3.6.3",
         "needle": "^2.5.2"
     },
     "scripts": {
         "test": "mocha ./test/unit",
-        "start": "node app.js"
+        "start": "node app.js",
+        "scss": "node-sass --watch ./src/scss -o css"
     },
     "devDependencies": {
         "mocha": "^8.2.1",
+        "node-sass": "^5.0.0",
         "nodemon": "^2.0.6"
     }
 }

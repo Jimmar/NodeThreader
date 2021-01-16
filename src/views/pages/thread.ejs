@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/nav'); %>
+  </header>
+  <main class="container container-large-padding">
+    <section class="section">
+      <div class="columns">
+        <div class="column  is-one-quarter">
+          <img class="avatar-image" src="https://amo-dating.com/img/avatar-245px-sample.jpg">
+        </div>
+        <div class="column">
+          <div class="rows">
+            <div class="row pb-2">
+              <b>Person Name</b>
+            </div>
+            <div class="row pb-5">
+              <b>@Twitter_handle</b>
+            </div>
+            <div class="row" style="text-align: end;">
+              <%= thread.length %> tweets, 25/120/2020
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <% thread.forEach(tweet=> { %>
+        <p>
+          <%= tweet.text %>
+            <% tweet.media.forEach(media=> { %>
+              <img src=<%=media.url%> >
+              <%}); %>
+        </p>
+        </br>
+        <% }); %>
+    </section>
+
+  </main>
+</body>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+
+</html>
