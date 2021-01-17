@@ -17,14 +17,15 @@ Twitter.prototype.baseGetRequest = async function (endpointURL, params, headers)
     return res.body;
 }
 
-Twitter.prototype.getTweet = async function ({ tweetId, tweetFields = "", expansions = "", mediaFields = "" }) {
+Twitter.prototype.getTweet = async function ({ tweetId, tweetFields = "", expansions = "", mediaFields = "", userFields = "" }) {
     const endpointURL = `${baseURL}/tweets?ids=`
 
     const params = {
         "ids": Array.isArray(tweetId) ? tweetId.join() : tweetId.toString(),
         "tweet.fields": tweetFields,
         "expansions": expansions,
-        "media.fields": mediaFields
+        "media.fields": mediaFields,
+        "user.fields": userFields
     }
 
     return await this.baseGetRequest(endpointURL, params, this.bearer_headers);
@@ -51,6 +52,7 @@ Twitter.prototype.getTweetWithTweetId = async function (tweetId) {
         "tweetFields": `created_at,attachments,lang,referenced_tweets,conversation_id`,
         "expansions": "attachments.media_keys,author_id",
         "mediaFields": "type,preview_image_url,duration_ms,height,width,url",
+        "userFields": "profile_image_url"
     }
 
     let tweet = await this.getTweet(params);

@@ -12,15 +12,17 @@
     <section class="section">
       <div class="columns">
         <div class="column  is-one-quarter">
-          <img class="avatar-image" src="https://amo-dating.com/img/avatar-245px-sample.jpg">
+          <img class="avatar-image" src=<%= author.profile_image_url || "/img/avatar.jpg" %> >
         </div>
         <div class="column">
           <div class="rows">
             <div class="row pb-2">
-              <b>Person Name</b>
+              <b><%= author.name %></b>
             </div>
             <div class="row pb-5">
-              <b>@Twitter_handle</b>
+              <a href="https://twitter.com/i/user/<%= author.id %>" target=_blank>
+                <b><%= author.username %></b>
+              </a>
             </div>
             <div class="row" style="text-align: end;">
               <%= thread.length %> tweets, 25/120/2020
@@ -35,12 +37,12 @@
       <% thread.forEach(tweet=> { %>
         <p>
           <%= tweet.text %>
-            <% tweet.media.forEach(media=> { %>
-              <img src=<%=media.url%> >
-              <%}); %>
+          <% tweet.media.forEach(media=> { %>
+            <img src=<%=media.url%> >
+          <% }); %>
         </p>
         </br>
-        <% }); %>
+      <% }); %>
     </section>
 
   </main>

@@ -2,6 +2,7 @@ import express from "express";
 import { promises as fs } from 'fs';
 import { cleanTweetObject, extractMediaFromThread, getThreadTweetsForTweetId } from "./src/services/threader.js";
 import ejs from "ejs";
+import Twitter from "./src/services/core/tw_api.js";
 
 const app = express();
 const port = 3000;
@@ -23,8 +24,8 @@ app.get("/thread/:thread_id", async (req, res) => {
 
     let mediaLibrary = extractMediaFromThread(fullThread);
     let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
-
-    res.render("pages/thread", { "thread": threadClean });
+    let author = fullThread.includes.users[0];
+    res.render("pages/thread", { "thread": threadClean, "author": author });
 });
 
 // =================== APIS ===================
@@ -51,15 +52,22 @@ app.listen(port, () => {
 
 // (async () => {
 
-//     console.time('getThreadTweetsForTweetIdRecursively')
-//     let fullThread = await getThreadTweetsForTweetId(tweet_id);
-//     console.timeEnd('getThreadTweetsForTweetIdRecursively')
+//     console.time('getThreadTweetsForTweetIdRecursively');
+//     // let fullThread = await getThreadTweetsForTweetId(tweet_id);
+//     const keys = await fs.readFile("src/config/keys.json");
+//     const credentials = JSON.parse(keys)["twitter"];
+//     const token = credentials.bearer_token;
+//     const api = new Twitter(token);
+//     const tweet = await api.getTweetWithTweetId(tweet_id);
+//     console.timeEnd('getThreadTweetsForTweetIdRecursively');
+//     // console.log(JSON.stringify(tweet));
 
-//     await fs.writeFile(`${FIXTURES}/test.json`, JSON.stringify(fullThread));
+//     // await fs.writeFile(`${FIXTURES}/test.json`, JSON.stringify(fullThread));
+//     // console.log(fullThread);
 
 //     // let mediaLibrary = extractMediaFromThread(fullThread);
 //     // let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
 //     // console.log(fullThread)
-//     // process.exit();
+//     process.exit();
 // })();

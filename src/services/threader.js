@@ -1,11 +1,11 @@
-import { promises as fs } from 'fs';
-import { getThreadFromDB, storeDataToDB } from '../helper/dbConnector.js';
-import Twitter from './core/tw_api.js';
+import { promises as fs } from "fs";
+import { getThreadFromDB, storeDataToDB } from "../helper/dbConnector.js";
+import Twitter from "./core/tw_api.js";
 
 
 async function getTwitterCredentials() {
-    const keys = await fs.readFile('src/config/keys.json');
-    const tw_credentials = JSON.parse(keys)['twitter'];
+    const keys = await fs.readFile("src/config/keys.json");
+    const tw_credentials = JSON.parse(keys)["twitter"];
     return tw_credentials;
 }
 
@@ -123,6 +123,8 @@ export function cleanRecursiveThread(thread) {
 export function cleanThread(thread) {
     //removes duplicate users
     thread.includes.users = thread.includes.users.filter((v, i, a) => a.findIndex(t => (t.id === v.id)) === i);
+    //fix profile image url to larger size
+    thread.includes.users.forEach(user => user.profile_image_url = user.profile_image_url?.replace("_normal", ""));
     thread.conversation_id = thread.data[0].conversation_id;
     return thread;
 }
