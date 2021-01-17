@@ -22,10 +22,11 @@ app.get("/thread/:thread_id", async (req, res) => {
     if (fullThread === undefined)
         return res.send(`No thread for id ${thread_id}`);
 
-    let mediaLibrary = extractMediaFromThread(fullThread);
-    let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
-    let author = fullThread.includes.users[0];
-    res.render("pages/thread", { "thread": threadClean, "author": author });
+    const mediaLibrary = extractMediaFromThread(fullThread);
+    const threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
+    const created_at = fullThread.data[0].created_at.split("T")[0];
+    const author = fullThread.includes.users[0];
+    res.render("pages/thread", { "thread": threadClean, "author": author, "created_at": created_at });
 });
 
 // =================== APIS ===================

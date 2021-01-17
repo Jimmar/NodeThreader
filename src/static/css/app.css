@@ -4,9 +4,9 @@
 }
 
 .avatar-image {
-    border-radius: 50%;
-    width: 124px;
+    width: 128px;
     height: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .logo-container {
@@ -14,4 +14,24 @@
     background-color: white;
     color: black;
     padding: 10px;
+}
+
+.tweet .tweet-text{
+    font-family: "roboto";
+    margin-bottom: 5px;
+}
+
+.tweet img{
+    border-radius: 5px;
+    min-width: 300px;
+}
+
+hr{
+    position: relative; 
+    top: 20px; 
+    height: 6px; 
+    background: black; 
+    margin-bottom: 50px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

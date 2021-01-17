@@ -12,20 +12,22 @@
     <section class="section">
       <div class="columns">
         <div class="column  is-one-quarter">
-          <img class="avatar-image" src=<%= author.profile_image_url || "/img/avatar.jpg" %> >
+          <figure class="image is-128x128">
+            <img class= "is-rounded avatar-image" src=<%= author.profile_image_url || "/img/avatar.jpg" %>>
+          </figure>
         </div>
         <div class="column">
           <div class="rows">
-            <div class="row pb-2">
+            <div class="row" style="font-size: x-large;">
               <b><%= author.name %></b>
             </div>
-            <div class="row pb-5">
+            <div class="row block">
               <a href="https://twitter.com/i/user/<%= author.id %>" target=_blank>
-                <b><%= author.username %></b>
+                <b>@<%= author.username %></b>
               </a>
             </div>
-            <div class="row" style="text-align: end;">
-              <%= thread.length %> tweets, 25/120/2020
+            <div class="row block" style="text-align: end;">
+              <%= thread.length %> tweets | <%= created_at %>
             </div>
           </div>
         </div>
@@ -35,16 +37,23 @@
 
     <section>
       <% thread.forEach(tweet=> { %>
-        <p>
-          <%= tweet.text %>
-          <% tweet.media.forEach(media=> { %>
-            <img src=<%=media.url%> >
-          <% }); %>
-        </p>
-        </br>
+        <div class="block tweet">
+          <div class="tweet-text is-size-4">
+            <%= tweet.text %>
+          </div>
+          <div class="columns is-multiline">
+            <% tweet.media.forEach(media=> { %>
+              <div class="column">
+                <figure class="image">
+                  <img class= "" src=<%=media.url%> >
+                </figure>
+              </div>
+            <% }); %>
+          </div>
+        </div>
       <% }); %>
     </section>
-
+    <hr>
   </main>
 </body>
 
