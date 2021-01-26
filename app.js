@@ -3,20 +3,34 @@ import { promises as fs } from 'fs';
 import { cleanTweetObject, extractMediaFromThread, getThreadTweetsForTweetId } from "./src/services/threader.js";
 import ejs from "ejs";
 import Twitter from "./src/services/core/tw_api.js";
+import bodyParser from "body-parser";
 
 const app = express();
 const port = 3000;
 app.set("view engine", "ejs");
 app.set("views", "src/views");
 app.use(express.static("src/static"));
+app.use(bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 
 
 app.get("/", (req, res) => {
-    res.render("pages/index");
+    res.render("pages/home");
+});
+
+app.post("/thread", async (req, res) => {
+    const urlField = req.body?.urlField;
+    console.log(urlField);
+    //TODO validate the url then fetch the thread and redirect to thread/thread_id url
+    res.redirect('/');
 });
 
 app.get("/thread/:thread_id", async (req, res) => {
     //TODO this should be calling the api function instead of doing it all on it's own
+    //TODO this should not be fetching the thread from twitter, should only display existing threads
     const thread_id = req.params?.thread_id;
     const fullThread = await getThreadTweetsForTweetId(thread_id);
     if (fullThread === undefined)

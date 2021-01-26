@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/nav'); %>
+  </header>
+  <main class="container pb-6 mb-6">
+    <h1 class="title title-main has-text-centered">
+      Node Threader
+    </h1>
+    <form class="p-6" method="post" action="thread" enctype="application/x-www-form-urlencoded" name="form">
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <input id="urlField" name="urlField" class="input is-primary is-large is-fullwidth" type="text"
+            placeholder="Paste a Twitter url">
+        </p>
+        <div class="control">
+          <button type="button" class="button is-large is-primary is-outlined" onclick="pasteButtonPressed()">
+            <span class="icon">
+              <i class="fas fa-paste"></i>
+            </span>
+          </button>
+        </div>
+        <div class="control">
+          <button class="button is-primary is-large"><b>Threadify</b></button>
+        </div>
+      </div>
+    </form>
+  </main>
+</body>
+
+<div>
+  <%- include('../partials/footer'); %>
+</div>
+</body>
+
+<script>
+  //TODO remove this from here and put it somewhere else
+  async function pasteButtonPressed() {
+    const text = await navigator.clipboard.readText()
+    document.getElementById("urlField").value = text;
+  }
+</script>
+
+</html>
