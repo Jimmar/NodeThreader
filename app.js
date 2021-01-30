@@ -28,7 +28,7 @@ async function threadRequest(req, res, next) {
 
     //TODO fetch the thread and redirect to thread/thread_id url
     urlField = urlField.trim();
-    //remove trailing backslash if exists
+    //removes trailing backslash if exists
     urlField = urlField.slice(-1) == "/" ? urlField.slice(0, -1) : urlField;
 
     const threadId = urlField.split("/").pop();
