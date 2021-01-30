@@ -1,7 +1,7 @@
 import express from "express";
 import { promises as fs } from 'fs';
 import { cleanTweetObject, extractMediaFromThread, getThreadTweetsForTweetId } from "./src/services/threader.js";
-import ejs from "ejs";
+import { validTwitterStatusUrl } from "./src/helper/twitter.js";
 import Twitter from "./src/services/core/tw_api.js";
 import bodyParser from "body-parser";
 
@@ -10,27 +10,34 @@ const port = 3000;
 app.set("view engine", "ejs");
 app.set("views", "src/views");
 app.use(express.static("src/static"));
-app.use(bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+app.use(bodyParser.json());                          // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));  // to support URL-encoded bodies
 
+function home(req, res) {
+    let context = req.dataProcessed;
+    res.render("pages/home", context);
+}
 
+async function threadRequest(req, res, next) {
+    let urlField = req.body?.urlField;
+    if (!urlField || !validTwitterStatusUrl(urlField)) {
+        req.dataProcessed = { "url_error": true, "urlField": urlField };
+        //TODO problem with this approach is that url doesn't change back
+        return next();
+    }
 
-app.get("/", (req, res) => {
-    res.render("pages/home");
-});
+    //TODO fetch the thread and redirect to thread/thread_id url
+    urlField = urlField.trim();
+    //remove trailing backslash if exists
+    urlField = urlField.slice(-1) == "/" ? urlField.slice(0, -1) : urlField;
 
-app.post("/thread", async (req, res) => {
-    const urlField = req.body?.urlField;
-    console.log(urlField);
-    //TODO validate the url then fetch the thread and redirect to thread/thread_id url
-    res.redirect('/');
-});
+    const threadId = urlField.split("/").pop();
+    res.redirect(`/thread/${threadId}`);
+}
 
-app.get("/thread/:thread_id", async (req, res) => {
-    //TODO this should be calling the api function instead of doing it all on it's own
-    //TODO this should not be fetching the thread from twitter, should only display existing threads
+async function threadPage(req, res) {
+    //TODO should be calling the api function instead of doing it all on it's own
+    //TODO should not be fetching the thread from twitter, should only display existing threads
     const thread_id = req.params?.thread_id;
     const fullThread = await getThreadTweetsForTweetId(thread_id);
     if (fullThread === undefined)
@@ -40,11 +47,17 @@ app.get("/thread/:thread_id", async (req, res) => {
     const threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
     const created_at = fullThread.data[0].created_at.split("T")[0];
     const author = fullThread.includes.users[0];
-    res.render("pages/thread", { "thread": threadClean, "author": author, "created_at": created_at });
-});
+
+    const context = { "thread": threadClean, "author": author, "created_at": created_at };
+    res.render("pages/thread", context);
+}
+
+app.get("/", home);
+app.post("/thread", threadRequest, home);
+app.get("/thread/:thread_id", threadPage);
 
 // =================== APIS ===================
-app.get("/api/thread/:thread_id", async (req, res) => {
+async function threadAPI(req, res) {
     const thread_id = req.params?.thread_id;
     const fullThread = await getThreadTweetsForTweetId(thread_id);
     if (fullThread === undefined)
@@ -54,7 +67,9 @@ app.get("/api/thread/:thread_id", async (req, res) => {
     let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
     return res.send(JSON.stringify(threadClean));
-});
+}
+
+app.get("/api/thread/:thread_id", threadAPI);
 // =================== APIS ===================
 
 app.listen(port, () => {
