@@ -129,6 +129,20 @@ export function cleanThread(thread) {
     return thread;
 }
 
+export async function enhanceThreadWithMediaVariants(thread, api) {
+
+    await Promise.all(thread.includes.media.map(async mediaInfo => {
+        if (mediaInfo.type == "video" || mediaInfo.type == "animated_gif") {
+            const tweet = thread.data.find(threadTweet => threadTweet.attachments?.media_keys?.includes(mediaInfo.media_key));
+            const tweetId = tweet.id;
+            const legacyTweet = await api.getTweetWithTweetId_V1(tweetId);
+
+            mediaInfo["variants"] = legacyTweet?.extended_entities?.media[0]?.video_info?.variants ?? null;
+        }
+    }));
+    return thread;
+}
+
 export function getMediaForKeys(mediaKeys, media) {
     if (typeof mediaKeys == "undefined" || typeof media == "undefined")
         return [];
