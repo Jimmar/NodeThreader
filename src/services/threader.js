@@ -24,7 +24,7 @@ export async function getThreadTweetsForTweetId(tweet_id) {
         const tweet = await api.getTweetWithTweetId(tweet_id);
         const conversation_id = tweet.data[0].conversation_id;
         if (conversation_id != tweet_id) {
-            cleanedThread = await getThreadFromDB(tweet_id);
+            cleanedThread = await getThreadFromDB(conversation_id);
             if (cleanedThread)
                 return cleanedThread;
         }
