@@ -45,12 +45,12 @@ Twitter.prototype.searchRecentTweets = async function ({ query, tweetFields = ""
     return await this.baseGetRequest(endpointURL, params, this.bearer_headers);
 };
 
-Twitter.prototype.getTweetV1 = async function ({ tweetId, includeEntities = true }) {
+Twitter.prototype.getTweetV1 = async function ({ tweetId, includeEntities = true, tweetMode }) {
     const endpointURL = `${baseURLv1}/statuses/show.json`;
-    console.log(endpointURL);
     const params = {
         "id": tweetId,
-        "include_entities": includeEntities
+        "include_entities": includeEntities,
+        "tweet_mode": tweetMode
     };
 
     const res = await needle("get", endpointURL, params, { headers: this.bearer_headers });
@@ -92,7 +92,8 @@ Twitter.prototype.searchUserTweetsWithConversationId = async function (conversat
 Twitter.prototype.getTweetWithTweetId_V1 = async function (tweetId) {
     const params = {
         "tweetId": tweetId,
-        "includeEntities": true
+        "includeEntities": true,
+        "tweetMode": "extended"
     };
 
     let tweet = await this.getTweetV1(params);

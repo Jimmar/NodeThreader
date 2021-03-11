@@ -44,9 +44,15 @@
           <div class="columns is-multiline">
             <% tweet.media.forEach(media=> { %>
               <div class="column">
+                <% if (media.type == "photo") { %>
                 <figure class="image">
                   <img class= "" src=<%=media.url%> >
                 </figure>
+                <% } else if (media.type == "animated_gif" || media.type == "video") { %>
+                  <video class="is-size-12" <% if (media.type == "animated_gif") { %> autoplay loop <%} %> controls muted poster=<%= media.preview_image_url %> >
+                    <source src=<%= media.variants[0].url%> type="video/mp4">
+                  </video>
+                <% } %>
               </div>
             <% }); %>
           </div>

@@ -234,7 +234,27 @@
                 "height": 560,
                 "media_key": "7_1329856012682207233",
                 "width": 960,
-                "variants": null
+                "variants": [
+                    {
+                      "bitrate": 832000,
+                      "content_type": "video/mp4",
+                      "url": "https://video.twimg.com/ext_tw_video/1329856012682207233/pu/vid/616x360/5RfK3iiOQTKnruh7.mp4?tag=10"
+                    },
+                    {
+                      "content_type": "application/x-mpegURL",
+                      "url": "https://video.twimg.com/ext_tw_video/1329856012682207233/pu/pl/jHEl_WzMYNVYSayd.m3u8?tag=10"
+                    },
+                    {
+                      "bitrate": 2176000,
+                      "content_type": "video/mp4",
+                      "url": "https://video.twimg.com/ext_tw_video/1329856012682207233/pu/vid/960x560/AqNPqZpEB9GZBQyh.mp4?tag=10"
+                    },
+                    {
+                      "bitrate": 256000,
+                      "content_type": "video/mp4",
+                      "url": "https://video.twimg.com/ext_tw_video/1329856012682207233/pu/vid/462x270/cT8TabDdxq9TKBWH.mp4?tag=10"
+                    }
+                  ]
             },
             {
                 "type": "photo",

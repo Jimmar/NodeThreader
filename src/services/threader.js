@@ -48,6 +48,7 @@ export async function getThreadTweetsForTweetId(tweet_id) {
                 "replies_meta": replies?.meta
             };
             cleanedThread = cleanThread(fullThread);
+            cleanedThread = await enhanceThreadWithMediaVariants(cleanedThread, api);
             if (cleanedThread) {
                 //TODO don't save threads with single tweets
                 console.log(`Storing thread with conversation ${conversation_id}`);
