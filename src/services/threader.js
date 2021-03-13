@@ -36,7 +36,7 @@ export async function getThreadTweetsForTweetId(tweet_id) {
         const replies = await api.searchUserTweetsWithConversationId(conversation_id, username);
 
         //if there aren't many replies, most likely need to get tweets recursively
-        if (replies?.data?.length < 2)
+        if (replies?.data?.length < 2 || replies?.meta?.result_count == 0)
             cleanedThread = await getThreadTweetsForTweetIdRecursively(tweet_id);
         else {
             const fullThread = {
