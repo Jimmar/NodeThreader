@@ -139,6 +139,7 @@ export async function enhanceThreadWithMediaVariants(thread, api) {
             const legacyTweet = await api.getTweetWithTweetId_V1(tweetId);
 
             mediaInfo["variants"] = legacyTweet?.extended_entities?.media[0]?.video_info?.variants ?? null;
+            mediaInfo["variants"]?.sort((a, b) => a.bitrate - b.bitrate).reverse();
         }
     }));
     return thread;
@@ -170,7 +171,6 @@ export function cleanTweetObject(tweet, mediaLibrary) {
     media.forEach(mediaElement => {
         if(mediaElement.hasOwnProperty("variants")){
             mediaElement.variants = mediaElement.variants.filter(m => m.hasOwnProperty("bitrate"));
-            mediaElement.variants.sort((a, b) => a.bitrate - b.bitrate).reverse();
         }
     });
     
