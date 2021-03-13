@@ -164,6 +164,16 @@ export function cleanTweetObject(tweet, mediaLibrary) {
     //TODO add tests
     const tweetText = tweet.text;
     const media = getMediaForKeys(tweet.attachments?.media_keys, mediaLibrary);
+
+    // cleans media variants and sort them with the highest bit rate at the top
+    // TODO refactor this maybe moving into another function
+    media.forEach(mediaElement => {
+        if(mediaElement.hasOwnProperty("variants")){
+            mediaElement.variants = mediaElement.variants.filter(m => m.hasOwnProperty("bitrate"));
+            mediaElement.variants.sort((a, b) => a.bitrate - b.bitrate).reverse();
+        }
+    });
+    
     const cleanedTweet = {
         "text": tweetText,
         "media": media
