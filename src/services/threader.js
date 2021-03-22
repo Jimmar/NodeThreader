@@ -49,10 +49,12 @@ export async function getThreadTweetsForTweetId(tweet_id) {
             };
             cleanedThread = cleanThread(fullThread);
             cleanedThread = await enhanceThreadWithMediaVariants(cleanedThread, api);
-            if (cleanedThread) {
-                //TODO don't save threads with single tweets
+            if (cleanedThread && cleanedThread.length > 1) {
                 console.log(`Storing thread with conversation ${conversation_id}`);
                 await storeDataToDB(cleanedThread);
+            }
+            else {
+                console.warn("Thread has one or less tweets");
             }
             return cleanedThread;
         }
