@@ -44,7 +44,7 @@ async function threadPage(req, res) {
         return res.send(`No thread for id ${thread_id}`);
 
     const mediaLibrary = extractMediaFromThread(fullThread);
-    const threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
+    const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
     const created_at = fullThread.data[0].created_at.split("T")[0];
     const author = fullThread.includes.users[0];
 

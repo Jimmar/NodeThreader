@@ -1,6 +1,8 @@
 import { promises as fs } from "fs";
 import { getThreadFromDB, storeDataToDB } from "../helper/dbConnector.js";
 import Twitter from "./core/tw_api.js";
+import { expandtcoUrl } from "../helper/twitter.js";
+import { url } from "inspector";
 
 
 async function getTwitterCredentials() {
@@ -162,23 +164,36 @@ export function extractMediaFromThread(fullThread) {
     return mediaLibrary;
 }
 
-export function cleanTweetObject(tweet, mediaLibrary) {
+export async function cleanTweetObject(tweet, mediaLibrary) {
     //TODO clean up the text removing tweet urls if needed
     //TODO add tests
-    const tweetText = tweet.text;
+    let tweetText = tweet.text;
     const media = getMediaForKeys(tweet.attachments?.media_keys, mediaLibrary);
 
     // cleans media variants and sort them with the highest bit rate at the top
     // TODO refactor this maybe moving into another function
     media.forEach(mediaElement => {
-        if(mediaElement.hasOwnProperty("variants")){
+        if (mediaElement.hasOwnProperty("variants")) {
             mediaElement.variants = mediaElement.variants.filter(m => m.hasOwnProperty("bitrate"));
         }
     });
-    
+    //TODO this should probably be done on fetch time 
+    tweetText = await expandTweetUrls({tweetText});
     const cleanedTweet = {
         "text": tweetText,
         "media": media
     };
     return cleanedTweet;
+}
+
+export async function expandTweetUrls({ tweetText, removeSelfUrl = true }) {
+    const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g)
+    if (urls && urls.length > 0) {
+        let urlsMap = await Promise.all(urls.map(url => expandtcoUrl(url)));
+        urls.forEach((url, i) => {
+            const replaceWith = (removeSelfUrl && !url.startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
+            tweetText = tweetText.replace(url, replaceWith);
+        });
+    }
+    return tweetText;
 }
