@@ -51,7 +51,7 @@ export async function getThreadTweetsForTweetId(tweet_id) {
             };
             cleanedThread = cleanThread(fullThread);
             cleanedThread = await enhanceThreadWithMediaVariants(cleanedThread, api);
-            if (cleanedThread && cleanedThread.length > 1) {
+            if (cleanedThread && cleanedThread.data.length > 1) {
                 console.log(`Storing thread with conversation ${conversation_id}`);
                 await storeDataToDB(cleanedThread);
             }
