@@ -19,6 +19,7 @@
 .tweet .tweet-text{
     font-family: "roboto";
     margin-bottom: 5px;
+    white-space: pre-line;
 }
 
 .tweet img{
