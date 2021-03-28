@@ -177,11 +177,24 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
             mediaElement.variants = mediaElement.variants.filter(m => m.hasOwnProperty("bitrate"));
         }
     });
-    //TODO this should probably be done on fetch time 
-    tweetText = await expandTweetUrls({tweetText});
+    //TODO have quoted tweets get fetched in the frontend
+    let quotedTweet = tweet.referenced_tweets?.find(t => t.type == "quoted");
+    if (quotedTweet) {
+        //TODO no need to get credentials for this api
+        const credentials = await getTwitterCredentials();
+        const token = credentials.bearer_token;
+        const api = new Twitter(token);
+        
+        quotedTweet = await api.getEmbedTweet(quotedTweet.id);
+        // hides parent of quoted tweet
+        quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">')
+    }
+    //TODO this should probably be done on fetch time (or dynamically from the frontend)
+    tweetText = await expandTweetUrls({ tweetText });
     const cleanedTweet = {
         "text": tweetText,
-        "media": media
+        "media": media,
+        "quotedhtml": quotedTweet?.html
     };
     return cleanedTweet;
 }
