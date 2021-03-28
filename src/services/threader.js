@@ -190,8 +190,9 @@ export async function expandTweetUrls({ tweetText, removeSelfUrl = true }) {
     const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g)
     if (urls && urls.length > 0) {
         let urlsMap = await Promise.all(urls.map(url => expandtcoUrl(url)));
+        
         urls.forEach((url, i) => {
-            const replaceWith = (removeSelfUrl && !url.startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
+            const replaceWith = (removeSelfUrl && urlsMap[i].startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
             tweetText = tweetText.replace(url, replaceWith);
         });
     }
