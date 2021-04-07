@@ -185,13 +185,13 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
         const credentials = await getTwitterCredentials();
         const token = credentials.bearer_token;
         const api = new Twitter(token);
-        
+
         quotedTweet = await api.getEmbedTweet(quotedTweet.id);
         // hides parent of quoted tweet
         quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">')
     }
     //TODO this should probably be done on fetch time (or dynamically from the frontend)
-    tweetText = await expandTweetUrls({ tweetText });
+    tweetText = await expandTweetUrls({ tweetText, addAHrefTag: true });
     const cleanedTweet = {
         "text": tweetText,
         "media": media,
@@ -200,13 +200,14 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
     return cleanedTweet;
 }
 
-export async function expandTweetUrls({ tweetText, removeSelfUrl = true }) {
+export async function expandTweetUrls({ tweetText, removeSelfUrl = true, addAHrefTag = false }) {
     const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g)
     if (urls && urls.length > 0) {
         let urlsMap = await Promise.all(urls.map(url => expandtcoUrl(url)));
-        
+
         urls.forEach((url, i) => {
-            const replaceWith = (removeSelfUrl && urlsMap[i].startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
+            let replaceWith = (removeSelfUrl && urlsMap[i].startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
+            replaceWith = (addAHrefTag && replaceWith) ? ` <a href=${replaceWith.trim()}>${replaceWith.trim()}</a>` : replaceWith;
             tweetText = tweetText.replace(url, replaceWith);
         });
     }

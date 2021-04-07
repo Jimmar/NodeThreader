@@ -37,11 +37,17 @@ describe("expand Tweet urls", async () => {
     deepStrictEqual(output, expectedOutput);
   }).timeout(5000);
 
-
   it("should expand tweet urls and remove self urls but keep real url", async () => {
     const dataInput = "The Q&A livestream is beginning! Join to learn about #crypto, #bitcoin, and open blockchains: https://t.co/BKojmoEMEe https://t.co/PxnNojWb8b";
     const expectedOutput = "The Q&A livestream is beginning! Join to learn about #crypto, #bitcoin, and open blockchains: https://aantonop.io/mar21qa";
     const output = await expandTweetUrls({tweetText: dataInput});
+    deepStrictEqual(output, expectedOutput);
+  }).timeout(5000);
+
+  it("should expand tweet urls and replace it with <a> tag", async () => {
+    const dataInput = "The Q&A livestream is beginning! Join to learn about #crypto, #bitcoin, and open blockchains: https://t.co/BKojmoEMEe https://t.co/PxnNojWb8b";
+    const expectedOutput = "The Q&A livestream is beginning! Join to learn about #crypto, #bitcoin, and open blockchains: <a href=https://aantonop.io/mar21qa>https://aantonop.io/mar21qa</a>";
+    const output = await expandTweetUrls({tweetText: dataInput, addAHrefTag: true});
     deepStrictEqual(output, expectedOutput);
   }).timeout(5000);
 });

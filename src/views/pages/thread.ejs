@@ -41,7 +41,7 @@
     <section>
       <% thread.forEach(tweet=> { %>
         <div class="block tweet">
-          <div class="tweet-text is-size-4"><%= tweet.text %></div>
+          <div class="tweet-text is-size-4"><%- tweet.text %></div>
 
           <% if (tweet.media?.length > 0) { %>
           <div class="columns is-multiline">
