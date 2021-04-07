@@ -50,6 +50,7 @@ export async function getThreadTweetsForTweetId(tweet_id) {
                 "replies_meta": replies?.meta
             };
             cleanedThread = cleanThread(fullThread);
+        };
             cleanedThread = await enhanceThreadWithMediaVariants(cleanedThread, api);
             if (cleanedThread && cleanedThread.data.length > 1) {
                 console.log(`Storing thread with conversation ${conversation_id}`);
@@ -59,7 +60,6 @@ export async function getThreadTweetsForTweetId(tweet_id) {
                 console.warn("Thread has one or less tweets");
             }
             return cleanedThread;
-        }
     } catch (e) {
         console.log(e);
         return null;
