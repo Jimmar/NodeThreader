@@ -2,7 +2,6 @@ import { promises as fs } from "fs";
 import { getThreadFromDB, storeDataToDB } from "../helper/dbConnector.js";
 import Twitter from "./core/tw_api.js";
 import { expandtcoUrl } from "../helper/twitter.js";
-import { url } from "inspector";
 
 
 async function getTwitterCredentials() {
@@ -200,6 +199,7 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
     return cleanedTweet;
 }
 
+//TODO this whole thing should be done in the FE
 export async function expandTweetUrls({ tweetText, removeSelfUrl = true, addAHrefTag = false }) {
     const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g)
     if (urls && urls.length > 0) {
