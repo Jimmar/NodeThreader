@@ -61,9 +61,9 @@ Twitter.prototype.getTweetV1 = async function ({ tweetId, includeEntities = true
     return res.body;
 };
 
-Twitter.prototype.oEmbed = async function ({ url, maxwidth = 500, align = "none", 
+Twitter.prototype.oEmbed = async function ({ url, maxwidth = 500, align = "none",
     theme = "light", hide_thread = false, omit_script = false }) {
-    const endpointURL = "https://publish.twitter.com/oembed"
+    const endpointURL = "https://publish.twitter.com/oembed";
     const params = {
         "url": url,
         "maxwidth": maxwidth,
@@ -118,7 +118,7 @@ Twitter.prototype.getTweetWithTweetId_V1 = async function (tweetId) {
     return tweet;
 };
 
-Twitter.prototype.getEmbedTweet = async function (tweetId){
+Twitter.prototype.getEmbedTweet = async function (tweetId) {
     const params = {
         "url": `https://twitter.com/twitter/status/${tweetId}`,
         "omit_script": true,
@@ -127,7 +127,7 @@ Twitter.prototype.getEmbedTweet = async function (tweetId){
     };
     let tweet = await this.oEmbed(params);
     return tweet;
-}
+};
 
 
 export default Twitter;

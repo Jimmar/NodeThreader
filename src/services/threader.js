@@ -94,7 +94,7 @@ export async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
             return null;
         }
     }
-    console.log(`recursively fetched ${fullThread.length} tweets for tail_tweet_id=${tail_tweet_id}`)
+    console.log(`recursively fetched ${fullThread.length} tweets for tail_tweet_id=${tail_tweet_id}`);
     const cleanedThread = cleanRecursiveThread(fullThread);
     return cleanedThread;
 }
@@ -187,10 +187,12 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
 
         quotedTweet = await api.getEmbedTweet(quotedTweet.id);
         // hides parent of quoted tweet
-        quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">')
+        quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">');
     }
     //TODO this should probably be done on fetch time (or dynamically from the frontend)
     tweetText = await expandTweetUrls({ tweetText, addAHrefTag: true });
+    tweetText = hyperlinkHashTags(tweetText);
+    tweetText = hyperlinkAts(tweetText);
     const cleanedTweet = {
         "text": tweetText,
         "media": media,
@@ -201,7 +203,7 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
 
 //TODO this whole thing should be done in the FE
 export async function expandTweetUrls({ tweetText, removeSelfUrl = true, addAHrefTag = false }) {
-    const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g)
+    const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g);
     if (urls && urls.length > 0) {
         let urlsMap = await Promise.all(urls.map(url => expandtcoUrl(url)));
 
@@ -211,5 +213,19 @@ export async function expandTweetUrls({ tweetText, removeSelfUrl = true, addAHre
             tweetText = tweetText.replace(url, replaceWith);
         });
     }
+    return tweetText;
+}
+
+//TODO this should be done in the FE
+export function hyperlinkHashTags(tweetText) {
+    const hashtagUrl = "https://twitter.com/hashtag";
+    tweetText = tweetText.replace(/#(\S+)/g, `<a href=${hashtagUrl}/$1>#$1</a>`);
+    return tweetText;
+}
+
+//TODO this should be done in the FE
+export function hyperlinkAts(tweetText) {
+    const atUrl = "https://twitter.com";
+    tweetText = tweetText.replace(/@(\S+)/g, `<a href=${atUrl}/$1>@$1</a>`);
     return tweetText;
 }
