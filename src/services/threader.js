@@ -10,8 +10,17 @@ async function getTwitterCredentials() {
     return tw_credentials;
 }
 
-export async function getThreadTweetsForTweetId(tweet_id) {
+export async function getThreadFromDBForConversationId(conversation_id) {
+    let cleanedThread = await getThreadFromDB(conversation_id);
+    if (cleanedThread)
+        return cleanedThread;
+    console.log(`Thread for conversation id ${conversation_id} doesn't exist in cache`);
+    throw "NoCachedThreadForId";
+}
+
+export async function fetchThreadTweetsForTweetId(tweet_id) {
     //TODO this is ugly, refactor
+    //TODO handle the case where the id is wrong
     let cleanedThread = await getThreadFromDB(tweet_id);
     if (cleanedThread)
         return cleanedThread;
@@ -23,6 +32,10 @@ export async function getThreadTweetsForTweetId(tweet_id) {
 
     try {
         const tweet = await api.getTweetWithTweetId(tweet_id);
+        if ("errors" in tweet) {
+            console.log(tweet.errors[0].detail);
+            throw "NoTweetForId";
+        }
         const conversation_id = tweet.data[0].conversation_id;
         if (conversation_id != tweet_id) {
             cleanedThread = await getThreadFromDB(conversation_id);
@@ -38,7 +51,8 @@ export async function getThreadTweetsForTweetId(tweet_id) {
 
         //if there aren't many replies, most likely need to get tweets recursively
         if (replies?.data?.length < 2 || replies?.meta?.result_count == 0)
-            cleanedThread = await getThreadTweetsForTweetIdRecursively(tweet_id);
+            // cleanedThread = await getThreadTweetsForTweetIdRecursively(tweet_id);
+            return null;
         else {
             const fullThread = {
                 "data": [...rootTweet.data || [], ...replies?.data?.reverse() || []],
@@ -60,8 +74,8 @@ export async function getThreadTweetsForTweetId(tweet_id) {
         }
         return cleanedThread;
     } catch (e) {
-        console.log(e);
-        return null;
+        console.error(e);
+        throw e;
     }
 }
 
@@ -86,7 +100,6 @@ export async function getThreadTweetsForTweetIdRecursively(tail_tweet_id) {
             if (refTweets === undefined) {
                 break;
             }
-
             tweet_id = refTweets.find((refTweet) => refTweet?.type == "replied_to")?.id;
 
         } catch (e) {

@@ -1,6 +1,6 @@
 import express from "express";
 import { promises as fs } from 'fs';
-import { cleanTweetObject, extractMediaFromThread, getThreadTweetsForTweetId } from "./src/services/threader.js";
+import { cleanTweetObject, extractMediaFromThread, fetchThreadTweetsForTweetId, getThreadFromDBForConversationId } from "./src/services/threader.js";
 import { validTwitterStatusUrl } from "./src/helper/twitter.js";
 import Twitter from "./src/services/core/tw_api.js";
 import bodyParser from "body-parser";
@@ -39,7 +39,7 @@ async function threadPage(req, res) {
     //TODO should be calling the api function instead of doing it all on it's own
     //TODO should not be fetching the thread from twitter, should only display existing threads
     const thread_id = req.params?.thread_id;
-    const fullThread = await getThreadTweetsForTweetId(thread_id);
+    const fullThread = await fetchThreadTweetsForTweetId(thread_id);
     if (fullThread === undefined)
         return res.send(`No thread for id ${thread_id}`);
 
@@ -57,19 +57,64 @@ app.post("/thread", threadRequest, home);
 app.get("/thread/:thread_id", threadPage);
 
 // =================== APIS ===================
-async function threadAPI(req, res) {
+
+//fetches thread if it doesn't exist in db
+async function threadFetchAPI(req, res) {
     const thread_id = req.params?.thread_id;
-    const fullThread = await getThreadTweetsForTweetId(thread_id);
-    if (fullThread === undefined)
-        return res.send(`{error: No thread for id ${thread_id}}`);
+    let response = {};
 
-    let mediaLibrary = extractMediaFromThread(fullThread);
-    let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
+    try {
+        const fullThread = await fetchThreadTweetsForTweetId(thread_id);
 
-    return res.send(JSON.stringify(threadClean));
+        if (fullThread === undefined)
+            response = { "status": "error", "error": "NoThreadForId", "extra": { "thread_id": thread_id } };
+        else {
+            const mediaLibrary = extractMediaFromThread(fullThread);
+            const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
+            const created_at = fullThread.data[0].created_at.split("T")[0];
+            const author = fullThread.includes.users[0];
+            const context = { "thread": threadClean, "author": author, "created_at": created_at };
+            response = { "status": "ok", "data": context };
+        }
+    } catch (error) {
+        response = { "status": "error", "error": error, "extra": { "thread_id": thread_id } };
+    }
+    return res.send(JSON.stringify(response));
 }
 
-app.get("/api/thread/:thread_id", threadAPI);
+//fetches thread recursively if it doesn't exist in db
+async function threadFetchRecursiveAPI(req, res) {
+    throw "Implement me";
+}
+
+//only gets existing threads
+async function threadAPI(req, res) {
+    const thread_id = req.params?.thread_id;
+    let response = {};
+    try {
+        const fullThread = await getThreadFromDBForConversationId(thread_id);
+        const mediaLibrary = extractMediaFromThread(fullThread);
+        const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
+        const created_at = fullThread.data[0].created_at.split("T")[0];
+        const author = fullThread.includes.users[0];
+
+        const context = { "thread": threadClean, "author": author, "created_at": created_at };
+        response = { "status": "ok", "data": context };
+    } catch (error) {
+        response = { "status": "error", "error": error, "extra": { "thread_id": thread_id } };
+    }
+    return res.send(JSON.stringify(response));
+}
+
+async function threadLatestAPI(req, res) {
+    //TODO
+    throw "Implement me";
+}
+
+app.get("/api/thread/fetch/:thread_id", threadFetchAPI);
+app.get("/api/thread/fetchRecursive/:thread_id", threadFetchRecursiveAPI);
+app.get("/api/thread/show/:thread_id", threadAPI);
+app.get("/api/thread/latest/:thread_id", threadLatestAPI);
 // =================== APIS ===================
 
 app.listen(port, () => {
