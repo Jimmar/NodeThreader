@@ -20,6 +20,9 @@ function home(req, res) {
 
 async function threadRequest(req, res, next) {
     let urlField = req.body?.urlField;
+    if (!isNaN(urlField))
+        urlField = `https://twitter.com/Twitter/status/${urlField}`;
+
     if (!urlField || !validTwitterStatusUrl(urlField)) {
         req.dataProcessed = { "url_error": true, "urlField": urlField };
         //TODO problem with this approach is that url doesn't change back
