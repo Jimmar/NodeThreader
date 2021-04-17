@@ -1,2 +1,2 @@
 # Node Threader
-Twitter Threader app in Node and maybe express ? :p
+Twitter Threader app in Node using express and Vue
