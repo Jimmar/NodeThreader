@@ -1,16 +1,22 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>
-  </div>
+  <Nav />
   <router-view />
+  <Footer />
 </template>
 
+<script>
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+
+export default {
+  setup() {},
+
+  components: {
+    Nav,
+    Footer,
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 </style>
