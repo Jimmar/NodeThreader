@@ -125,27 +125,28 @@ app.listen(port, () => {
 });
 
 
-// const FIXTURES = "test/fixtures";
-// const tweet_id = "1341193051184611331";
+const FIXTURES = "test/fixtures";
+const tweet_id = "1365443839184547843";
 
 // (async () => {
 
-//     console.time('getThreadTweetsForTweetIdRecursively');
-//     // let fullThread = await getThreadTweetsForTweetId(tweet_id);
-//     const keys = await fs.readFile("src/config/keys.json");
-//     const credentials = JSON.parse(keys)["twitter"];
-//     const token = credentials.bearer_token;
-//     const api = new Twitter(token);
-//     const tweet = await api.getTweetWithTweetId(tweet_id);
-//     console.timeEnd('getThreadTweetsForTweetIdRecursively');
-//     // console.log(JSON.stringify(tweet));
+    // console.time('getThreadTweetsForTweetIdRecursively');
+    // // let fullThread = await getThreadTweetsForTweetId(tweet_id);
+    // const keys = await fs.readFile("src/config/keys.json");
+    // const credentials = JSON.parse(keys)["twitter"];
+    // const token = credentials.bearer_token;
+    // const api = new Twitter(token);
+    // const tweet = await api.getTweetV1({tweetId:tweet_id});
+    // console.log(tweet);
+    // console.log("=========");
+    // console.log(JSON.stringify(tweet));
 
-//     // await fs.writeFile(`${FIXTURES}/test.json`, JSON.stringify(fullThread));
-//     // console.log(fullThread);
+    // await fs.writeFile(`${FIXTURES}/test.json`, JSON.stringify(fullThread));
+    // console.log(fullThread);
 
-//     // let mediaLibrary = extractMediaFromThread(fullThread);
-//     // let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
+    // let mediaLibrary = extractMediaFromThread(fullThread);
+    // let threadClean = fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary));
 
-//     // console.log(fullThread)
-//     process.exit();
+    // console.log(fullThread)
+    // process.exit();
 // })();
