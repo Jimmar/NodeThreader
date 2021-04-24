@@ -4,6 +4,7 @@ import { cleanTweetObject, extractMediaFromThread, fetchThreadTweetsForTweetId, 
 import { validTwitterStatusUrl } from "./src/helper/twitter.js";
 import Twitter from "./src/services/core/tw_api.js";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 const app = express();
 const port = 3000;
@@ -12,6 +13,8 @@ app.set("views", "src/views");
 app.use(express.static("src/static"));
 app.use(bodyParser.json());                          // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));  // to support URL-encoded bodies
+//TODO define allowed origins
+app.use(cors())
 
 function home(req, res) {
     let context = req.dataProcessed;
