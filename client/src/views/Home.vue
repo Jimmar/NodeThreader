@@ -13,6 +13,7 @@
                 type="text"
                 placeholder="Paste a Twitter url or a tweet ID"
                 v-model="urlField"
+                :disabled="fetching"
               />
             </p>
             <div class="control">
@@ -20,6 +21,7 @@
                 type="button"
                 class="button is-large is-primary is-outlined"
                 @click="pasteButtonPressed"
+                :disabled="fetching"
               >
                 <span class="icon">
                   <i class="fas fa-paste"></i>
@@ -28,16 +30,25 @@
             </div>
           </div>
           <div class="control">
-            <button class="button is-primary is-large is-fullwidth">
-              <b>Threadify</b>
+            <button
+              class="button is-primary is-large is-fullwidth"
+              :style="{ 'pointer-events': fetching ? 'none' : 'auto' }"
+            >
+              <div
+                :style="{ visibility: fetching ? 'visible' : 'hidden' }"
+                class="loader"
+              ></div>
+              <div :style="{ visibility: !fetching ? 'visible' : 'hidden' }">
+                <b>Threadify</b>
+              </div>
             </button>
           </div>
         </div>
         <p
           class="help is-danger is-size-5"
-          :style="{ visibility: urlError ? 'visible' : 'hidden' }"
+          :style="{ visibility: errorField ? 'visible' : 'hidden' }"
         >
-          {{ urlError || "wontshow" }}
+          {{ errorField || "wontshow" }}
         </p>
       </form>
     </main>
@@ -45,14 +56,15 @@
 </template>
 
 <script>
-const baseUrl = "http://127.0.0.1:3000/api/thread/fetch";
+const baseUrl = "http://127.0.0.1:3000/api";
 
 export default {
   name: "Home",
   data() {
     return {
       urlField: "",
-      urlError: "",
+      errorField: "",
+      fetching: false,
     };
   },
   setup() {},
@@ -66,22 +78,44 @@ export default {
     async submitButtonPressed(event) {
       event.preventDefault();
       if (this.verifyInput(this.urlField)) {
-        let fetchedData = await this.fetchData(this.urlField);
-        console.log(fetchedData);
+        try {
+          let fetchedData = await this.fetchDataForTwUrl(this.urlField);
+          this.fetching = false;
+          if (fetchedData?.status === "ok") {
+            //TODO redirect to thread page
+          } else {
+            this.errorField = fetchedData.error;
+          }
+        } catch (error) {
+          this.fetching = false;
+          console.error(error);
+          this.errorField = "Unexpected error :/";
+        }
       }
     },
 
     verifyInput(textInput) {
-      this.urlError = "";
+      this.errorField = "";
       if (!textInput || textInput.trim() == "") {
-        this.urlError = "Url field can't be empty";
+        this.errorField = "Url field can't be empty";
       }
-      return this.urlError == "";
+      return this.errorField == "";
     },
 
-    async fetchData(url) {
-      const fetchUrl = `${baseUrl}/${url}`;
-      const response = await fetch(fetchUrl, { mode: "no-cors" });
+    async fetchDataForTwUrl(url) {
+      this.fetching = true;
+      const fetchUrl = `${baseUrl}/thread/fetch`;
+      const body = { urlField: url };
+
+      const init = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      };
+
+      const response = await fetch(fetchUrl, init);
       const fetchedData = await response.json();
       return fetchedData;
     },
@@ -94,5 +128,25 @@ export default {
   padding-top: 2em;
   font-family: "roboto";
   font-size: 5em;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  /*TODO fix this color if changed */
+  border-top: 16px solid #00d1b2;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  position: absolute;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
