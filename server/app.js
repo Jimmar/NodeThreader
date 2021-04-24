@@ -49,13 +49,9 @@ async function threadPage(req, res) {
     if (fullThread === undefined)
         return res.send(`No thread for id ${thread_id}`);
 
-    const mediaLibrary = extractMediaFromThread(fullThread);
-    const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
-    const created_at = fullThread.data[0].created_at.split("T")[0];
-    const author = fullThread.includes.users[0];
-
-    const context = { "thread": threadClean, "author": author, "created_at": created_at };
-    res.render("pages/thread", context);
+    const data = await getDataForThread(fullThread);
+    console.log(data);
+    res.render("pages/thread", data);
 }
 
 app.get("/", home);
@@ -66,24 +62,36 @@ app.get("/thread/:thread_id", threadPage);
 
 //fetches thread if it doesn't exist in db
 async function threadFetchAPI(req, res) {
-    const thread_id = req.params?.thread_id;
-    let response = {};
+    let response = null;
+    const urlFieldRaw = req.body?.urlField;
 
-    try {
-        const fullThread = await fetchThreadTweetsForTweetId(thread_id);
+    console.log(urlFieldRaw);
+    let urlField = urlFieldRaw;
+    urlField = !isNaN(urlField) ? `https://twitter.com/Twitter/status/${urlField}` : urlField;
 
-        if (fullThread === undefined)
-            response = { "status": "error", "error": "NoThreadForId", "extra": { "thread_id": thread_id } };
-        else {
-            const mediaLibrary = extractMediaFromThread(fullThread);
-            const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
-            const created_at = fullThread.data[0].created_at.split("T")[0];
-            const author = fullThread.includes.users[0];
-            const context = { "thread": threadClean, "author": author, "created_at": created_at };
-            response = { "status": "ok", "data": context };
+    if (!urlField || !validTwitterStatusUrl(urlField))
+        response = { "status": "error", "error": "InvalidUrl", "extra": { "urlField": urlFieldRaw } };
+
+    if (!response) {
+        urlField = urlField.trim();
+        //removes trailing backslash if exists
+        urlField = urlField.slice(-1) == "/" ? urlField.slice(0, -1) : urlField;
+
+        try {
+            const threadId = urlField.split("/").pop();
+            const fullThread = await fetchThreadTweetsForTweetId(threadId);
+
+            if (fullThread === undefined)
+                response = { "status": "error", "error": "NoThreadForId", "extra": { "urlField": urlFieldRaw } };
+            else {
+                const data = await getDataForThread(fullThread);
+                response = { "status": "ok", "data": data };
+            }
+        } catch (error) {
+            console.log("errored out");
+            console.log(error);
+            response = { "status": "error", "error": error, "extra": { "urlField": urlFieldRaw } };
         }
-    } catch (error) {
-        response = { "status": "error", "error": error, "extra": { "thread_id": thread_id } };
     }
     return res.send(JSON.stringify(response));
 }
@@ -98,14 +106,8 @@ async function threadAPI(req, res) {
     const thread_id = req.params?.thread_id;
     let response = {};
     try {
-        const fullThread = await getThreadFromDBForConversationId(thread_id);
-        const mediaLibrary = extractMediaFromThread(fullThread);
-        const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
-        const created_at = fullThread.data[0].created_at.split("T")[0];
-        const author = fullThread.includes.users[0];
-
-        const context = { "thread": threadClean, "author": author, "created_at": created_at };
-        response = { "status": "ok", "data": context };
+        const data = await getDataForThread(fullThread);
+        response = { "status": "ok", "data": data };
     } catch (error) {
         response = { "status": "error", "error": error, "extra": { "thread_id": thread_id } };
     }
@@ -117,11 +119,21 @@ async function threadLatestAPI(req, res) {
     throw "Implement me";
 }
 
-app.get("/api/thread/fetch/:thread_id", threadFetchAPI);
+app.post("/api/thread/fetch", threadFetchAPI);
 app.get("/api/thread/fetchRecursive/:thread_id", threadFetchRecursiveAPI);
 app.get("/api/thread/show/:thread_id", threadAPI);
 app.get("/api/thread/latest/:thread_id", threadLatestAPI);
 // =================== APIS ===================
+
+//creates a data from thread to be sent to FE
+async function getDataForThread(fullThread) {
+    const mediaLibrary = extractMediaFromThread(fullThread);
+    const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
+    const created_at = fullThread.data[0].created_at.split("T")[0];
+    const author = fullThread.includes.users[0];
+    const data = { "thread": threadClean, "author": author, "created_at": created_at };
+    return data;
+}
 
 app.listen(port, () => {
     console.log(`app running on port:${port}`);
