@@ -10,11 +10,12 @@ const app = express();
 const port = 3000;
 app.set("view engine", "ejs");
 app.set("views", "src/views");
+app.use(cors())
 app.use(express.static("src/static"));
 app.use(bodyParser.json());                          // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));  // to support URL-encoded bodies
 //TODO define allowed origins
-app.use(cors())
+
 
 function home(req, res) {
     let context = req.dataProcessed;
@@ -50,7 +51,6 @@ async function threadPage(req, res) {
         return res.send(`No thread for id ${thread_id}`);
 
     const data = await getDataForThread(fullThread);
-    console.log(data);
     res.render("pages/thread", data);
 }
 
@@ -64,8 +64,6 @@ app.get("/thread/:thread_id", threadPage);
 async function threadFetchAPI(req, res) {
     let response = null;
     const urlFieldRaw = req.body?.urlField;
-
-    console.log(urlFieldRaw);
     let urlField = urlFieldRaw;
     urlField = !isNaN(urlField) ? `https://twitter.com/Twitter/status/${urlField}` : urlField;
 
@@ -88,8 +86,7 @@ async function threadFetchAPI(req, res) {
                 response = { "status": "ok", "data": data };
             }
         } catch (error) {
-            console.log("errored out");
-            console.log(error);
+            console.error(error);
             response = { "status": "error", "error": error, "extra": { "urlField": urlFieldRaw } };
         }
     }
