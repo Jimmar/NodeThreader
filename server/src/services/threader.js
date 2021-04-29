@@ -207,6 +207,7 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
     tweetText = hyperlinkHashTags(tweetText);
     tweetText = hyperlinkAts(tweetText);
     const cleanedTweet = {
+        "id": tweet.id,
         "text": tweetText,
         "media": media,
         "quotedhtml": quotedTweet?.html
