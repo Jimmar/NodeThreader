@@ -200,7 +200,12 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
 
         quotedTweet = await api.getEmbedTweet(quotedTweet.id);
         // hides parent of quoted tweet
-        quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">');
+        if ("error" in quotedTweet) {
+            quotedTweet.html = "<blockquote> This Tweet is unavailable. </blockquote>"
+        }
+        else {
+            quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">');
+        }
     }
     //TODO this should probably be done on fetch time (or dynamically from the frontend)
     tweetText = await expandTweetUrls({ tweetText, addAHrefTag: true });

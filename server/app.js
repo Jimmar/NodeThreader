@@ -33,7 +33,7 @@ async function threadRequest(req, res, next) {
         return next();
     }
 
-    //TODO fetch the thread and redirect to thread/thread_id url
+    //TODO fetch the thread and redirect to thread/threadId url
     urlField = urlField.trim();
     //removes trailing backslash if exists
     urlField = urlField.slice(-1) == "/" ? urlField.slice(0, -1) : urlField;
@@ -45,10 +45,10 @@ async function threadRequest(req, res, next) {
 async function threadPage(req, res) {
     //TODO should be calling the api function instead of doing it all on it's own
     //TODO should not be fetching the thread from twitter, should only display existing threads
-    const thread_id = req.params?.thread_id;
-    const fullThread = await fetchThreadTweetsForTweetId(thread_id);
+    const threadId = req.params?.threadId;
+    const fullThread = await fetchThreadTweetsForTweetId(threadId);
     if (fullThread === undefined)
-        return res.send(`No thread for id ${thread_id}`);
+        return res.send(`No thread for id ${threadId}`);
 
     const data = await getDataForThread(fullThread);
     res.render("pages/thread", data);
@@ -56,7 +56,7 @@ async function threadPage(req, res) {
 
 app.get("/", home);
 app.post("/thread", threadRequest, home);
-app.get("/thread/:thread_id", threadPage);
+app.get("/thread/:threadId", threadPage);
 
 // =================== APIS ===================
 
@@ -100,13 +100,15 @@ async function threadFetchRecursiveAPI(req, res) {
 
 //only gets existing threads
 async function threadAPI(req, res) {
-    const thread_id = req.params?.thread_id;
+    const threadId = req.params?.threadId;
     let response = {};
     try {
+        const fullThread = await getThreadFromDBForConversationId(threadId);
         const data = await getDataForThread(fullThread);
         response = { "status": "ok", "data": data };
     } catch (error) {
-        response = { "status": "error", "error": error, "extra": { "thread_id": thread_id } };
+        console.error(error)
+        response = { "status": "error", "error": error, "extra": { "threadId": threadId } };
     }
     return res.send(JSON.stringify(response));
 }
@@ -117,9 +119,9 @@ async function threadLatestAPI(req, res) {
 }
 
 app.post("/api/thread/fetch", threadFetchAPI);
-app.get("/api/thread/fetchRecursive/:thread_id", threadFetchRecursiveAPI);
-app.get("/api/thread/show/:thread_id", threadAPI);
-app.get("/api/thread/latest/:thread_id", threadLatestAPI);
+app.get("/api/thread/fetchRecursive/:threadId", threadFetchRecursiveAPI);
+app.get("/api/thread/show/:threadId", threadAPI);
+app.get("/api/thread/latest/:threadId", threadLatestAPI);
 // =================== APIS ===================
 
 //creates a data from thread to be sent to FE
