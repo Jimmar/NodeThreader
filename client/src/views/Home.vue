@@ -56,7 +56,7 @@
 </template>
 
 <script>
-const baseUrl = "http://127.0.0.1:3000/api";
+import { verifyInput, fetchDataForTwUrl } from "../scripts/apis";
 
 export default {
   name: "Home",
@@ -77,53 +77,30 @@ export default {
 
     async submitButtonPressed(event) {
       event.preventDefault();
-      if (this.verifyInput(this.urlField)) {
-        try {
-          let fetchedData = await this.fetchDataForTwUrl(this.urlField);
-          this.fetching = false;
-          if (fetchedData?.status === "ok") {
-            //TODO redirect to thread page
-          } else {
-            this.errorField = fetchedData.error;
-          }
-        } catch (error) {
-          this.fetching = false;
-          console.error(error);
-          this.errorField = "Unexpected error :/";
-        }
-      }
-    },
-
-    verifyInput(textInput) {
       this.errorField = "";
-      if (!textInput || textInput.trim() == "") {
-        this.errorField = "Url field can't be empty";
-      }
-      return this.errorField == "";
-    },
-
-    async fetchDataForTwUrl(url) {
       this.fetching = true;
-      const fetchUrl = `${baseUrl}/thread/fetch`;
-      const body = { urlField: url };
+      try {
+        verifyInput(this.urlField);
+        let fetchedData = await fetchDataForTwUrl(this.urlField);
+        if (fetchedData?.status === "ok") {
+          console.log("data fetched");
+          console.log(fetchedData.data);
+          //TODO redirect to thread page
+        } else {
+          throw Error(fetchedData.error);
+        }
+      } catch (error) {
+        console.error(error);
+        this.errorField = error.message;
+      }
 
-      const init = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      };
-
-      const response = await fetch(fetchUrl, init);
-      const fetchedData = await response.json();
-      return fetchedData;
+      this.fetching = false;
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .title-main {
   padding-top: 2em;
   font-family: "roboto";
