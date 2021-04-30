@@ -5,8 +5,17 @@ import { expandtcoUrl } from "../helper/twitter.js";
 
 
 async function getTwitterCredentials() {
-    const keys = await fs.readFile("src/config/keys.json");
-    const tw_credentials = JSON.parse(keys)["twitter"];
+    let tw_credentials = {
+        key: process.env.TW_KEY,
+        secret: process.env.TW_SECRET,
+        bearer_token: process.env.TW_BEARER_TOKEN
+    }
+    //currently only need bearer_token so only checks it
+    if (tw_credentials.bearer_token === undefined) {
+        console.warn("no TW_BEARER_TOKEN in ENV, attempting to read from keys.json");
+        const keys = await fs.readFile("src/config/keys.json");
+        tw_credentials = JSON.parse(keys)["twitter"];
+    }
     return tw_credentials;
 }
 
