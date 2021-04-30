@@ -34,10 +34,7 @@
               class="button is-primary is-large is-fullwidth"
               :style="{ 'pointer-events': fetching ? 'none' : 'auto' }"
             >
-              <div
-                :style="{ visibility: fetching ? 'visible' : 'hidden' }"
-                class="loader"
-              ></div>
+              <Spinner :hide="!fetching" position="absolute"/>
               <div :style="{ visibility: !fetching ? 'visible' : 'hidden' }">
                 <b>Threadify</b>
               </div>
@@ -57,6 +54,7 @@
 
 <script>
 import { verifyInput, fetchDataForTwUrl } from "../scripts/apis";
+import Spinner from "../components/Spinner";
 
 export default {
   name: "Home",
@@ -68,7 +66,9 @@ export default {
     };
   },
   setup() {},
-  components: {},
+  components: {
+    Spinner
+  },
   methods: {
     async pasteButtonPressed() {
       const text = await navigator.clipboard.readText();
@@ -89,7 +89,7 @@ export default {
             name: "Thread",
             params: {
               threadId: fetchedData.data.conversation_id,
-              threadDataJson: JSON.stringify(fetchedData.data)
+              threadDataJson: JSON.stringify(fetchedData.data),
             },
           });
           //TODO redirect to thread page
@@ -112,25 +112,5 @@ export default {
   padding-top: 2em;
   font-family: "roboto";
   font-size: 5em;
-}
-
-.loader {
-  border: 16px solid #f3f3f3;
-  /*TODO fix this color if changed */
-  border-top: 16px solid #00d1b2;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 1s linear infinite;
-  position: absolute;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 </style>

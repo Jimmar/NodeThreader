@@ -73,11 +73,14 @@
       <hr />
     </div>
     <!--TODO use animated indicator instead of just text -->
-    <div v-else>Loading ...</div>
+    <section v-else class="section">
+      <Spinner size="100" />
+    </section>
   </main>
 </template>
 
 <script>
+import Spinner from "../components/Spinner.vue";
 import { showDataForTwId } from "../scripts/apis";
 
 export default {
@@ -107,6 +110,8 @@ export default {
     },
   },
 
+  components: { Spinner },
+
   //TODO maybe not at mounted ? not sure if it's the correct place
   async mounted() {
     console.log("mounted");
@@ -127,7 +132,7 @@ export default {
         //TODO redirect to not found or something
       }
     }
-    
+
     this.loaded = true;
 
     // needed for twitter widgets to load
