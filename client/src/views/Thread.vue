@@ -62,6 +62,8 @@
               </video>
             </div>
           </div>
+          <!--TODO handle "This Tweet is unavailable" case and make it look nicer-->
+          <!--TODO find a way to show a spinner/loading till the widget loads-->
           <div
             v-if="tweet.quotedhtml"
             class="column"
@@ -108,7 +110,7 @@ export default {
   //TODO maybe not at mounted ? not sure if it's the correct place
   async mounted() {
     console.log("mounted");
-
+    
     try {
       //TODO check if data was passed or not
       let fetchedData = await showDataForTwId(this.threadId);
@@ -125,6 +127,9 @@ export default {
     }
 
     this.fetching = false;
+
+    // needed for twitter widgets to load
+    this.$nextTick(function () { twttr.widgets.load(); });
   },
 };
 </script>

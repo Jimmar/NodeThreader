@@ -204,7 +204,8 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
             quotedTweet.html = "<blockquote> This Tweet is unavailable. </blockquote>"
         }
         else {
-            quotedTweet.html.replace('<blockquote>', '<blockquote data-conversation="none">');
+            //TODO check if this actually works or not
+            quotedTweet.html = quotedTweet.html.replace('<blockquote ', '<blockquote data-conversation="none" ');
         }
     }
     //TODO this should probably be done on fetch time (or dynamically from the frontend)
