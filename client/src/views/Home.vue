@@ -85,6 +85,13 @@ export default {
         if (fetchedData?.status === "ok") {
           console.log("data fetched");
           console.log(fetchedData.data);
+          this.$router.push({
+            name: "Thread",
+            params: {
+              threadId: fetchedData.data.conversation_id,
+              threadDataJson: JSON.stringify(fetchedData.data)
+            },
+          });
           //TODO redirect to thread page
         } else {
           throw Error(fetchedData.error);

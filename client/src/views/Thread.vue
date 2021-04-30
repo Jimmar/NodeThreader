@@ -1,7 +1,6 @@
 <template>
   <main class="container container-large-padding">
-    <!-- TODO maybe don't rely on threadData, have another indicator -->
-    <div v-if="threadData">
+    <div v-if="loaded">
       <section class="section">
         <div class="columns">
           <div class="column is-one-quarter">
@@ -83,11 +82,12 @@ import { showDataForTwId } from "../scripts/apis";
 
 export default {
   name: "Thread",
-  props: ["threadId"],
+  props: ["threadId", "threadDataJson"],
 
   data() {
     return {
-      threadData: null,
+      threadData: this.threadDataJson ? JSON.parse(this.threadDataJson) : null,
+      loaded: false,
     };
   },
   setup() {},
@@ -110,26 +110,31 @@ export default {
   //TODO maybe not at mounted ? not sure if it's the correct place
   async mounted() {
     console.log("mounted");
-    
-    try {
-      //TODO check if data was passed or not
-      let fetchedData = await showDataForTwId(this.threadId);
-      if (fetchedData?.status === "ok") {
-        this.threadData = fetchedData.data;
-        console.log(fetchedData.data);
-      } else {
-        throw Error(fetchedData.error);
+    if (!this.threadData) {
+      try {
+        //TODO check if data was passed or not
+        console.log("fetching");
+        let fetchedData = await showDataForTwId(this.threadId);
+        if (fetchedData?.status === "ok") {
+          this.threadData = fetchedData.data;
+          console.log(fetchedData.data);
+        } else {
+          throw Error(fetchedData.error);
+          //TODO redirect to not found or something
+        }
+      } catch (error) {
+        console.error(error);
         //TODO redirect to not found or something
       }
-    } catch (error) {
-      console.error(error);
-      //TODO redirect to not found or something
     }
-
-    this.fetching = false;
+    
+    this.loaded = true;
 
     // needed for twitter widgets to load
-    this.$nextTick(function () { twttr.widgets.load(); });
+    // TODO look into only calling it if needed
+    this.$nextTick(function () {
+      twttr.widgets.load();
+    });
   },
 };
 </script>
