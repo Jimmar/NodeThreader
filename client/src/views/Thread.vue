@@ -83,10 +83,10 @@ import { showDataForTwId } from "../scripts/apis";
 
 export default {
   name: "Thread",
+  props: ["threadId"],
 
   data() {
     return {
-      threadId: this.$route.params.threadId,
       threadData: null,
     };
   },

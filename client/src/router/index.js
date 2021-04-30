@@ -12,6 +12,7 @@ const routes = [
   {
     path: '/thread/:threadId',
     name: 'Thread',
+    props: true,
     component: Thread
   },
   {
