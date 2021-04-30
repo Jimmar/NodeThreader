@@ -130,7 +130,7 @@ async function getDataForThread(fullThread) {
     const threadClean = await Promise.all(fullThread.data.map((tweet) => cleanTweetObject(tweet, mediaLibrary)));
     const created_at = fullThread.data[0].created_at.split("T")[0];
     const author = fullThread.includes.users[0];
-    const data = { "thread": threadClean, "author": author, "created_at": created_at };
+    const data = { "thread": threadClean, "author": author, "created_at": created_at, "conversation_id": fullThread.data[0].conversation_id };
     return data;
 }
 

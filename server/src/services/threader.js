@@ -3,7 +3,6 @@ import { getThreadFromDB, storeDataToDB } from "../helper/dbConnector.js";
 import Twitter from "./core/tw_api.js";
 import { expandtcoUrl } from "../helper/twitter.js";
 
-
 async function getTwitterCredentials() {
     let tw_credentials = {
         key: process.env.TW_KEY,
