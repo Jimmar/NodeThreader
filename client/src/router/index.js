@@ -17,8 +17,10 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'NotFound', 
-    component: NotFound
+    // name: 'NotFound', 
+    // component: NotFound
+    //TODO is this better or 404 ?
+    redirect: '/'
   },
 ]
 
