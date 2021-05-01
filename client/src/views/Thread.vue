@@ -143,8 +143,8 @@ export default {
 
 <style scoped>
 .container-large-padding {
-  padding-left: 20%;
-  padding-right: 20%;
+  padding-left: 7%;
+  padding-right: 7%;
 }
 
 .avatar-image {
