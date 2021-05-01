@@ -1,5 +1,5 @@
 <template>
-  <div :style="cssVars" class="loader"></div>
+  <div :style="cssVars" class="spinner"></div>
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-.loader {
+.spinner {
   border: 16px solid var(--colorMain);
   border-top: 16px solid var(--colorAccent);
   border-radius: 50%;

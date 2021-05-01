@@ -63,7 +63,6 @@
                 </video>
               </div>
             </div>
-            <!--TODO handle "This Tweet is unavailable" case and make it look nicer-->
             <!--TODO find a way to show a spinner/loading till the widget loads-->
             <div
               v-if="tweet.quotedhtml"
@@ -131,7 +130,6 @@ export default {
         this.$router.push({ name: "NotFound" });
       }
     }
-
     this.loaded = true;
 
     // needed for twitter widgets to load
@@ -187,5 +185,8 @@ video {
   background-size: cover;
   overflow: hidden;
   border-radius: 15px;
+}
+.section .spinner{
+  margin-top: 100px;
 }
 </style>
