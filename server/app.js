@@ -82,8 +82,8 @@ async function threadFetchAPI(req, res) {
             if (fullThread === undefined)
                 response = { "status": "error", "error": "NoThreadForId", "extra": { "urlField": urlFieldRaw } };
             else {
-                const data = await getDataForThread(fullThread);
-                response = { "status": "ok", "data": data };
+                const conversation_id = fullThread.data[0].conversation_id;
+                response = { "status": "ok", conversation_id };
             }
         } catch (error) {
             console.error(error);

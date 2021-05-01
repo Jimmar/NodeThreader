@@ -72,9 +72,8 @@
       </section>
       <hr />
     </div>
-    <!--TODO use animated indicator instead of just text -->
     <section v-else class="section">
-      <Spinner size="100" />
+      <Spinner :size="100" />
     </section>
   </main>
 </template>
@@ -85,11 +84,11 @@ import { showDataForTwId } from "../scripts/apis";
 
 export default {
   name: "Thread",
-  props: ["threadId", "threadDataJson"],
+  props: ["threadId"],
 
   data() {
     return {
-      threadData: this.threadDataJson ? JSON.parse(this.threadDataJson) : null,
+      threadData: null,
       loaded: false,
     };
   },
@@ -114,22 +113,19 @@ export default {
 
   //TODO maybe not at mounted ? not sure if it's the correct place
   async mounted() {
-    console.log("mounted");
+    // This check is mainly useful for dev
     if (!this.threadData) {
       try {
-        //TODO check if data was passed or not
-        console.log("fetching");
         let fetchedData = await showDataForTwId(this.threadId);
         if (fetchedData?.status === "ok") {
           this.threadData = fetchedData.data;
-          console.log(fetchedData.data);
         } else {
           throw Error(fetchedData.error);
-          //TODO redirect to not found or something
         }
       } catch (error) {
         console.error(error);
         //TODO redirect to not found or something
+        this.$router.push({ name: "NotFound" });
       }
     }
 

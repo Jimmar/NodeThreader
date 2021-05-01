@@ -209,7 +209,7 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
         quotedTweet = await api.getEmbedTweet(quotedTweet.id);
         // hides parent of quoted tweet
         if ("error" in quotedTweet) {
-            quotedTweet.html = "<blockquote> This Tweet is unavailable. </blockquote>"
+            quotedTweet.html = "<blockquote class='quotedTweetUnavailable'> This Tweet is unavailable. </blockquote>"
         }
         else {
             //TODO check if this actually works or not

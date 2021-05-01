@@ -34,7 +34,7 @@
               class="button is-primary is-large is-fullwidth"
               :style="{ 'pointer-events': fetching ? 'none' : 'auto' }"
             >
-              <Spinner :hide="!fetching" position="absolute"/>
+              <Spinner :hide="!fetching" position="absolute" />
               <div :style="{ visibility: !fetching ? 'visible' : 'hidden' }">
                 <b>Threadify</b>
               </div>
@@ -67,7 +67,7 @@ export default {
   },
   setup() {},
   components: {
-    Spinner
+    Spinner,
   },
   methods: {
     async pasteButtonPressed() {
@@ -84,15 +84,13 @@ export default {
         let fetchedData = await fetchDataForTwUrl(this.urlField);
         if (fetchedData?.status === "ok") {
           console.log("data fetched");
-          console.log(fetchedData.data);
+          console.log(fetchedData.conversation_id);
           this.$router.push({
             name: "Thread",
             params: {
-              threadId: fetchedData.data.conversation_id,
-              threadDataJson: JSON.stringify(fetchedData.data),
+              threadId: fetchedData.conversation_id,
             },
           });
-          //TODO redirect to thread page
         } else {
           throw Error(fetchedData.error);
         }
