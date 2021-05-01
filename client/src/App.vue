@@ -1,7 +1,9 @@
 <template>
-  <Nav />
-  <router-view />
-  <Footer />
+  <div class="flex-wrapper">
+    <Nav />
+    <router-view />
+    <Footer />
+  </div>
 </template>
 
 <script>
@@ -19,4 +21,10 @@ export default {
 </script>
 
 <style>
+.flex-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 </style>
