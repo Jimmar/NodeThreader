@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+  <%- include('../partials/head'); %>
+    <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/nav'); %>
+  </header>
+  <main class="container container-large-padding">
+    <section class="section">
+      <div class="columns">
+        <div class="column  is-one-quarter">
+          <figure class="image is-128x128">
+            <img class="is-rounded avatar-image" src=<%=author.profile_image_url || "/img/avatar.jpg" %>>
+          </figure>
+        </div>
+        <div class="column">
+          <div class="rows">
+            <div class="row" style="font-size: x-large;">
+              <b>
+                <%= author.name %>
+              </b>
+            </div>
+            <div class="row block">
+              <a href="https://twitter.com/i/user/<%= author.id %>" target=_blank>
+                <b>@<%= author.username %></b>
+              </a>
+            </div>
+            <div class="row block" style="text-align: end;">
+              <%= thread.length %> tweets | <%= created_at %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <% thread.forEach(tweet=> { %>
+        <div class="block tweet">
+          <div class="tweet-text is-size-4"><%- tweet.text %></div>
+
+          <% if (tweet.media?.length > 0) { %>
+          <div class="columns is-multiline">
+            <% tweet.media.forEach(media=> { %>
+              <div class="column">
+                <% if (media.type=="photo" ) { %>
+                  <figure class="image">
+                    <img class="" src=<%=media.url%> >
+                  </figure>
+                  <% } else if (media.type=="animated_gif" || media.type=="video" ) { %>
+                    <video class="is-size-12" <% if (media.type=="animated_gif" ) { %> autoplay loop <%} %> controls
+                        muted poster=<%= media.preview_image_url %> >
+                          <source src=<%=media.variants[0].url%> type="video/mp4">
+                    </video>
+                    <% } %>
+              </div>
+              <% }); %>
+          </div>
+          <% }; %>
+
+          <% if (tweet.quotedhtml) { %>
+          <div class=column>
+            <%- tweet.quotedhtml %>
+          </div>
+          <% } %>
+
+        </div>
+        <% }); %>
+    </section>
+    <hr>
+  </main>
+
+  <div>
+    <%- include('../partials/footer'); %>
+  </div>
+</body>
+</html>

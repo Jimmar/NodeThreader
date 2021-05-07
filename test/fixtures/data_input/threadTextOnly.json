@@ -1,0 +1,116 @@
+{
+    "data": [
+        {
+            "created_at": "2020-11-21T13:09:18.000Z",
+            "author_id": "777493907818975232",
+            "text": "People keep asking me how I went from 143 followers to 150 in just 6 months. \n\nLet me tell you it has been a journey.\n\nA thread 👇",
+            "lang": "en",
+            "id": "1330136205472751616",
+            "conversation_id": "1330136205472751616"
+        },
+        {
+            "author_id": "777493907818975232",
+            "referenced_tweets": [
+                {
+                    "type": "replied_to",
+                    "id": "1330136205472751616"
+                }
+            ],
+            "id": "1330136206185738240",
+            "text": "Back in my early days of Twitter (July 2020) I used to wonder how I could get more followers. Now I have the formula that is driving my new followers crazy.",
+            "conversation_id": "1330136205472751616",
+            "lang": "en",
+            "created_at": "2020-11-21T13:09:18.000Z"
+        },
+        {
+            "author_id": "777493907818975232",
+            "referenced_tweets": [
+                {
+                    "type": "replied_to",
+                    "id": "1330136206185738240"
+                }
+            ],
+            "id": "1330136207116935168",
+            "text": "First, let me explain how I went from 143 to 147.\n\nBots. \n\nThese 4 were bots.",
+            "conversation_id": "1330136205472751616",
+            "lang": "en",
+            "created_at": "2020-11-21T13:09:19.000Z"
+        },
+        {
+            "author_id": "777493907818975232",
+            "referenced_tweets": [
+                {
+                    "type": "replied_to",
+                    "id": "1330136207116935168"
+                }
+            ],
+            "id": "1330136208379437057",
+            "text": "Then I got another follower a month later when I realized my wife was on Twitter @thekaylo. Thanks for following me back hon.",
+            "conversation_id": "1330136205472751616",
+            "lang": "en",
+            "created_at": "2020-11-21T13:09:19.000Z"
+        },
+        {
+            "author_id": "777493907818975232",
+            "referenced_tweets": [
+                {
+                    "type": "replied_to",
+                    "id": "1330136208379437057"
+                }
+            ],
+            "id": "1330136209205719044",
+            "text": "The last 2 I had to work for. \n\nBut it was worth it. \n\nI haven't been off Twitter for the past 39 minutes , it's 5am and now I reached 150 followers and the fame that will inevidibaly follow.",
+            "conversation_id": "1330136205472751616",
+            "lang": "en",
+            "created_at": "2020-11-21T13:09:19.000Z"
+        },
+        {
+            "author_id": "777493907818975232",
+            "referenced_tweets": [
+                {
+                    "type": "replied_to",
+                    "id": "1330136209205719044"
+                }
+            ],
+            "id": "1330136210656940034",
+            "text": "I will be creating an ebook and video and thinking about a podcast next year to go into this a bit more. \n\nBut in the mean time. I'm going to push for 155 by Christmas.\n\nStay safe.",
+            "conversation_id": "1330136205472751616",
+            "lang": "en",
+            "created_at": "2020-11-21T13:09:20.000Z"
+        },
+        {
+            "author_id": "777493907818975232",
+            "referenced_tweets": [
+                {
+                    "type": "replied_to",
+                    "id": "1330136210656940034"
+                }
+            ],
+            "id": "1330141511250538497",
+            "text": "And thanks @arvidkahl for being my 150th. \n\nYou will not be forgotten.",
+            "conversation_id": "1330136205472751616",
+            "lang": "en",
+            "created_at": "2020-11-21T13:30:23.000Z"
+        }
+    ],
+    "includes": {
+        "media": [],
+        "users": [
+            {
+                "id": "777493907818975232",
+                "name": "Steve Lamar",
+                "username": "StevejLamar"
+            },
+            {
+                "id": "777493907818975232",
+                "name": "Steve Lamar",
+                "username": "StevejLamar"
+            }
+        ]
+    },
+    "replies_meta": {
+        "newest_id": "1330141511250538497",
+        "oldest_id": "1330136206185738240",
+        "result_count": 6
+    }
+}

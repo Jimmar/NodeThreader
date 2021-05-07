@@ -1,0 +1,133 @@
+[
+    {
+        "data": [
+            {
+                "text": "Here is Clyde Fabian - in his Xavier Roberts scrubs (my mom picked this doll out because my dad is a doctor and she thought it was cute) https://t.co/CCcjfd0jX9",
+                "id": "1333834585118007300",
+                "lang": "en",
+                "attachments": {
+                    "media_keys": [
+                        "3_1333834578642034690"
+                    ]
+                },
+                "created_at": "2020-12-01T18:05:21.000Z",
+                "author_id": "415146484",
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1333616770872127490"
+                    }
+                ],
+                "conversation_id": "1333615635591553026"
+            }
+        ],
+        "includes": {
+            "media": [
+                {
+                    "width": 2048,
+                    "height": 2048,
+                    "media_key": "3_1333834578642034690",
+                    "type": "photo",
+                    "url": "https://pbs.twimg.com/media/EoK7e3kXYAI_fBV.jpg"
+                }
+            ],
+            "users": [
+                {
+                    "id": "415146484",
+                    "name": "chloë",
+                    "username": "chloeevansj",
+                    "profile_image_url": "https://pbs.twimg.com/profile_images/1302708041436008450/WoAOPyYE.jpg"
+                }
+            ]
+        }
+    },
+    {
+        "data": [
+            {
+                "text": "When my older sister Kristin had her first baby, my hilarious younger sister @catjaddy had this onesie made for our niece. At least Kristin has a good sense of humor about the whole snafu https://t.co/T8d2ORBteb",
+                "lang": "en",
+                "created_at": "2020-12-01T03:39:50.000Z",
+                "author_id": "415146484",
+                "attachments": {
+                    "media_keys": [
+                        "3_1333616764371021824"
+                    ]
+                },
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1333615874234789888"
+                    }
+                ],
+                "conversation_id": "1333615635591553026",
+                "id": "1333616770872127490"
+            }
+        ],
+        "includes": {
+            "media": [
+                {
+                    "type": "photo",
+                    "width": 1125,
+                    "height": 1082,
+                    "url": "https://pbs.twimg.com/media/EoH1YaLXMAAdl6o.jpg",
+                    "media_key": "3_1333616764371021824"
+                }
+            ],
+            "users": [
+                {
+                    "id": "415146484",
+                    "name": "chloë",
+                    "username": "chloeevansj"
+                }
+            ]
+        }
+    },
+    {
+        "data": [
+            {
+                "referenced_tweets": [
+                    {
+                        "type": "replied_to",
+                        "id": "1333615635591553026"
+                    }
+                ],
+                "created_at": "2020-12-01T03:36:16.000Z",
+                "conversation_id": "1333615635591553026",
+                "lang": "en",
+                "author_id": "415146484",
+                "text": "Why my mom kept the birth certificate? She thought the cabbage patch might be worth something one day bc it was an original. Why she kept it with our birth certificates? I don’t know. That’s the part of the story where my mom did an embarrassing thing.",
+                "id": "1333615874234789888"
+            }
+        ],
+        "includes": {
+            "users": [
+                {
+                    "id": "415146484",
+                    "name": "chloë",
+                    "username": "chloeevansj"
+                }
+            ]
+        }
+    },
+    {
+        "data": [
+            {
+                "author_id": "415146484",
+                "conversation_id": "1333615635591553026",
+                "id": "1333615635591553026",
+                "created_at": "2020-12-01T03:35:19.000Z",
+                "lang": "en",
+                "text": "I may have done a lot of embarrassing things in my life, but my older sister actually once found a cabbage patch kids birth certificate in my moms filing cabinet, started screaming at and accusing our mom of hiding our “brother” Clyde Fabian from us, and she was like 15"
+            }
+        ],
+        "includes": {
+            "users": [
+                {
+                    "id": "415146484",
+                    "name": "chloë",
+                    "username": "chloeevansj"
+                }
+            ]
+        }
+    }
+]

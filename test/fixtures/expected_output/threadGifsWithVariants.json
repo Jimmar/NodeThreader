@@ -1,0 +1,476 @@
+{
+    "data": [
+      {
+        "id": "1368927972506415104",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:56.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927971113832450"
+          }
+        ],
+        "text": "thanks for reading !! if you have any questions feel free to dm me or message my cc :)\n\nhttps://t.co/IR2Ed4mSEm"
+      },
+      {
+        "id": "1368927971113832450",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:56.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927969394188296"
+          }
+        ],
+        "text": "i hope this thread helped you understand elemental mastery a bit more,, it's not talked about as much and it can be difficult to get good EM stats for artifacts for the supports you want to use. all you need is a good applicator and initiator with good stats / EM and you're good"
+      },
+      {
+        "id": "1368927969394188296",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368924332156719104"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:56.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927965610934273"
+          }
+        ],
+        "text": "as for catalyst users, the mappa mare is the best option for EM help. since it's craftable too, its much easier to get it to R5 to make the most of its skill. https://t.co/ddDr03v3qC"
+      },
+      {
+        "id": "1368927965610934273",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368924221582307329"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:55.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927962398154757"
+          }
+        ],
+        "text": "if you're struggling with EM early game, a 4pc instructors set on an initiator is a great way to go about getting good damage early on. https://t.co/zVtiU1Bk3n"
+      },
+      {
+        "id": "1368927962398154757",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:54.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927960447778837"
+          }
+        ],
+        "text": "i think that covers pretty much everything to do with elemental mastery as a stat.  in terms of team-building, its only really a main focus for hardcore elemental supports and catalyst users."
+      },
+      {
+        "id": "1368927960447778837",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368923285422039045"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:53.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927955418837004"
+          }
+        ],
+        "text": "all enemies begin with 10% resistance, however if you have a skill / constellation that lowers that resistance below 0, then the damage is increased.\n\nthe reactions scale with enemy levels. the chart below shows all enemy levels + reactions from WL5 onwards. https://t.co/XrDc61eYFI"
+      },
+      {
+        "id": "1368927955418837004",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368922467692056579"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:52.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927949538402306"
+          }
+        ],
+        "text": "what this doesn't take into account, however, is the different resistances for each enemy. for example, a pyro whopperflower has 75% pyro resistance and any pyro-based reactions will be severely dampened. https://t.co/UGgRMe8WWh"
+      },
+      {
+        "id": "1368927949538402306",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368922063499632640"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:51.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927945822179332"
+          }
+        ],
+        "text": "the damage ratio depends on the reaction being created. the chart below shows the damage ratio for each reaction from worst to best. https://t.co/I83GzWDqXP"
+      },
+      {
+        "id": "1368927945822179332",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:50.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927944131940354"
+          }
+        ],
+        "text": "for amplification reactions, the scaling goes 135 &gt; 300 &gt; 800, with a percentage increase of 25% &gt; 50% &gt; 100%.\n\nfor transformative reactions, the scaling goes 120 &gt; 250 &gt; 600 &gt; 850, with a percentage increase of 50% &gt; 100% &gt; 200% &gt; 250%"
+      },
+      {
+        "id": "1368927944131940354",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368921547868696577"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:49.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927940587749378"
+          }
+        ],
+        "text": "the damage done through reactions scales with elemental mastery of the initiator as percentage / number intervals. the reaction calculator takes into account the reaction and its multiplier, the EM and level of the initiator. https://t.co/VcpEC8C3NO"
+      },
+      {
+        "id": "1368927940587749378",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368919912748625924"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:49.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927937009958912"
+          }
+        ],
+        "text": "instead of the applicator (the character who applies the first element)\n\nthe graph below shows the scaling for each transformative reaction based on both the level and elemental mastery of the initiator. https://t.co/G50iThJFdY"
+      },
+      {
+        "id": "1368927937009958912",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:48.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927935739142144"
+          }
+        ],
+        "text": "if you want to have the highest reaction output for a transformative reaction, make sure your initiator (the one who has the higher em/skill) applies the second element to create the reaction, as the damage will scale off of their EM / level-"
+      },
+      {
+        "id": "1368927935739142144",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:47.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927934304620547"
+          }
+        ],
+        "text": "so, if you want to focus on team-comps with transformative reactions, you'll want to focus on elemental mastery more."
+      },
+      {
+        "id": "1368927934304620547",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:47.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927932673036288"
+          }
+        ],
+        "text": "on to transformative- this includes overload, superconduct, electro-charged, shattered and swirl. these reactions only take into account the level and elemental mastery of the character who initiates the reaction."
+      },
+      {
+        "id": "1368927932673036288",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "3_1368920734593146883"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:47.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927929208627203"
+          }
+        ],
+        "text": "with amplifier reactions, the order in which elements are applied also effects the damage amplification. in order to get the best output, it's better to put the elements in 'realistic' order; meaning cryo &gt; pyro for melt, or pyro &gt; hydro for vaporise. https://t.co/c7IAn0Uxml"
+      },
+      {
+        "id": "1368927929208627203",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:46.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927927035920384"
+          }
+        ],
+        "text": "tldr ; get yourself a Sucrose, she's pretty cool"
+      },
+      {
+        "id": "1368927927035920384",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "16_1368918109092995073"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:45.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927916843823108"
+          }
+        ],
+        "text": "since her passive skill, Mollis Favonius, increases the entire party's EM by 20% of Sucrose's EM when an enemy is hit with her skill or burst. her other passive, Catalyst Conversion, increases EM by 50 for the element in your party who was involved in a swirl reaction. https://t.co/XaR2aryqBa"
+      },
+      {
+        "id": "1368927916843823108",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:43.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927912414547971"
+          }
+        ],
+        "text": "if you're building a team that focuses on vaporise and melt, you don't have to focus on EM since the majority of the damage calculation comes from existing stats. a good way to still boost your EM with these reactions is to have Sucrose on your team,"
+      },
+      {
+        "id": "1368927912414547971",
+        "author_id": "3717351501",
+        "lang": "en",
+        "attachments": {
+          "media_keys": [
+            "16_1368908922845880321"
+          ]
+        },
+        "created_at": "2021-03-08T14:13:42.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927902344052736"
+          }
+        ],
+        "text": "there are two different types of elemental reactions- amplifier and transformative. amplifier reactions include vaporise and melt. These two reactions focus on the character initiating the atk, skill dmg, crit%/dmg and other dmg bonuses, https://t.co/atbAw07RJC"
+      },
+      {
+        "id": "1368927902344052736",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:40.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927900980936707"
+          }
+        ],
+        "text": "PLEASE NOTE - elemental mastery does not influence the elemental damage that is done, but rather how much damage reactions do."
+      },
+      {
+        "id": "1368927900980936707",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:39.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927899626143744"
+          }
+        ],
+        "text": "as a physical dmg main with over 2,600 hours in the game myself, ive never really focused on elemental mastery unless its for support, which is what i'll be going into today. i'll be going over how elemental mastery influences reaction damage and how the damage multiplier works."
+      },
+      {
+        "id": "1368927899626143744",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:39.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927898246279175"
+          }
+        ],
+        "text": "however for catalyst users and the small amount of people who only use charged bow shots (you know who you are), elemental mastery is one of the most important stats to consider when building a support or sub-dps who can do those massive colourful numbers."
+      },
+      {
+        "id": "1368927898246279175",
+        "author_id": "3717351501",
+        "lang": "en",
+        "created_at": "2021-03-08T14:13:39.000Z",
+        "conversation_id": "1368927896132272129",
+        "referenced_tweets": [
+          {
+            "type": "replied_to",
+            "id": "1368927896132272129"
+          }
+        ],
+        "text": "for a game about elements,, elemental mastery is one of the most overlooked stats when it comes to building a character. in terms of most physical dps, element master isnt their main focus as their damage is mostly, as the name says; physical."
+      }
+    ],
+    "includes": {
+      "users": [
+        {
+          "id": "3717351501",
+          "name": "aj !! gw pinned",
+          "username": "wxndbard"
+        }
+      ],
+      "media": [
+        {
+          "height": 510,
+          "url": "https://pbs.twimg.com/media/Ev9lbV6XEAAqE6n.png",
+          "media_key": "3_1368924332156719104",
+          "width": 492,
+          "type": "photo"
+        },
+        {
+          "height": 224,
+          "url": "https://pbs.twimg.com/media/Ev9lU5_XcAEWo8Q.png",
+          "media_key": "3_1368924221582307329",
+          "width": 440,
+          "type": "photo"
+        },
+        {
+          "height": 658,
+          "url": "https://pbs.twimg.com/media/Ev9keahXYAUJBHw.png",
+          "media_key": "3_1368923285422039045",
+          "width": 1088,
+          "type": "photo"
+        },
+        {
+          "height": 4096,
+          "url": "https://pbs.twimg.com/media/Ev9ju0PWEAMJMYO.jpg",
+          "media_key": "3_1368922467692056579",
+          "width": 3026,
+          "type": "photo"
+        },
+        {
+          "height": 218,
+          "url": "https://pbs.twimg.com/media/Ev9jXSgXIAA_TVD.png",
+          "media_key": "3_1368922063499632640",
+          "width": 957,
+          "type": "photo"
+        },
+        {
+          "height": 172,
+          "url": "https://pbs.twimg.com/media/Ev9i5RoXcAEC3WH.png",
+          "media_key": "3_1368921547868696577",
+          "width": 593,
+          "type": "photo"
+        },
+        {
+          "height": 683,
+          "url": "https://pbs.twimg.com/media/Ev9haGVXMAQu8b1.jpg",
+          "media_key": "3_1368919912748625924",
+          "width": 1012,
+          "type": "photo"
+        },
+        {
+          "height": 312,
+          "url": "https://pbs.twimg.com/media/Ev9iJ78XYAM2M4f.png",
+          "media_key": "3_1368920734593146883",
+          "width": 599,
+          "type": "photo"
+        },
+        {
+          "height": 220,
+          "preview_image_url": "https://pbs.twimg.com/tweet_video_thumb/Ev9fxHMWYAEX-5e.jpg",
+          "media_key": "16_1368918109092995073",
+          "width": 450,
+          "type": "animated_gif",
+          "variants": [
+            {
+              "bitrate": 0,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/tweet_video/Ev9fxHMWYAEX-5e.mp4"
+            }
+          ]
+        },
+        {
+          "height": 248,
+          "preview_image_url": "https://pbs.twimg.com/tweet_video_thumb/Ev9XaZwXYAE647Q.jpg",
+          "media_key": "16_1368908922845880321",
+          "width": 450,
+          "type": "animated_gif",
+          "variants": [
+            {
+              "bitrate": 0,
+              "content_type": "video/mp4",
+              "url": "https://video.twimg.com/tweet_video/Ev9XaZwXYAE647Q.mp4"
+            }
+          ]
+        }
+      ]
+    },
+    "meta": {
+      "newest_id": "1368927972506415104",
+      "oldest_id": "1368927898246279175",
+      "result_count": 23
+    }
+  }

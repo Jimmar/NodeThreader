@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <header>
+    <%- include('../partials/nav'); %>
+  </header>
+  <main class="container pb-6 mb-6">
+    <h1 class="title title-main has-text-centered">
+      Node Threader
+    </h1>
+    <form class="p-6" method="post" action="thread" enctype="application/x-www-form-urlencoded" name="form">
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control is-expanded">
+            <input id="urlField" name="urlField" class="input is-primary is-large is-fullwidth" type="text"
+              placeholder="Paste a Twitter url or a tweet ID" value=<%= locals.urlField ? locals.urlField : "" %> >
+          </p>
+          <div class="control">
+            <button type="button" class="button is-large is-primary is-outlined" onclick="pasteButtonPressed()">
+              <span class="icon">
+                <i class="fas fa-paste"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="control">
+          <button class="button is-primary is-large is-fullwidth" type="submit" onclick="return verifyInput()"><b>Threadify</b></button>
+        </div>
+      </div>
+      <% if (locals.url_error) { %>
+        <p class="help is-danger is-size-5">Invalid Twitter url</p>
+      <% } %>
+        <p id="emptyError" class="help is-danger is-size-5 is-hidden">Url field is empty</p>
+    </form>
+  </main>
+</body>
+
+<div>
+  <%- include('../partials/footer'); %>
+</div>
+
+<script>
+  //TODO remove those from here and put it somewhere else
+  async function pasteButtonPressed() {
+    const text = await navigator.clipboard.readText()
+    document.getElementById("urlField").value = text;
+  }
+
+  function verifyInput(){
+    document.getElementById("emptyError").classList.add("is-hidden");
+    const text = document.getElementById("urlField").value;
+    if (text.trim() == "")
+    {
+      document.getElementById("emptyError").classList.remove("is-hidden");
+      return false;
+    }
+  }
+</script>
+
+</html>
