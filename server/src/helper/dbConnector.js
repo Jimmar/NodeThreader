@@ -1,9 +1,21 @@
 import { promises as fs } from 'fs';
 import { default as mongodb } from 'mongodb';
-//TODO switch to one client per app
 
+//TODO switch to one client per app
 async function getDBUri() {
-    const mongoCredentials = JSON.parse(await fs.readFile('src/config/mongodbatlas.json'))['mongodb'];
+
+    let mongoCredentials = {
+        "username": process.env.MONGODB_USERNAME,
+        "password": process.env.MONGODB_PASSWORD,
+        "dbname": process.env.MONGODB_DBNAME,
+    }
+    if (mongoCredentials.username === undefined ||
+        mongoCredentials.password === undefined ||
+        mongoCredentials.dbname === undefined) {
+        console.warn("MONGODB_USERNAME, MONGODB_PASSWORD, or MONGODB_DBNAME are missing in ENV, attempting to read from keys.json");
+        const keys = await fs.readFile("src/config/keys.json");
+        mongoCredentials = JSON.parse(keys)["mongodb"];
+    }
     const mongoUri = `mongodb+srv://${mongoCredentials.username}:${mongoCredentials.password}@cluster0.iikww.mongodb.net/${mongoCredentials.dbname}?retryWrites=true&w=majority`;
     return mongoUri;
 }
