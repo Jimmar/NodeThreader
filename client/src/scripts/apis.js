@@ -1,5 +1,5 @@
 
-const BASE_URL = "http://127.0.0.1:3000/api";
+const BASE_URL = "https://node-threader-server.herokuapp.com/api";
 
 export async function fetchDataForTwUrl(url) {
     const fetchUrl = `${BASE_URL}/thread/fetch`;
