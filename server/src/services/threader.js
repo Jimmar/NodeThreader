@@ -3,10 +3,18 @@ import { getThreadFromDB, storeDataToDB } from "../helper/dbConnector.js";
 import Twitter from "./core/tw_api.js";
 import { expandtcoUrl } from "../helper/twitter.js";
 
-
 async function getTwitterCredentials() {
-    const keys = await fs.readFile("src/config/keys.json");
-    const tw_credentials = JSON.parse(keys)["twitter"];
+    let tw_credentials = {
+        key: process.env.TW_KEY,
+        secret: process.env.TW_SECRET,
+        bearer_token: process.env.TW_BEARER_TOKEN
+    }
+    //currently only need bearer_token so only checks it
+    if (tw_credentials.bearer_token === undefined) {
+        console.warn("no TW_BEARER_TOKEN in ENV, attempting to read from keys.json");
+        const keys = await fs.readFile("src/config/keys.json");
+        tw_credentials = JSON.parse(keys)["twitter"];
+    }
     return tw_credentials;
 }
 
@@ -200,13 +208,20 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
 
         quotedTweet = await api.getEmbedTweet(quotedTweet.id);
         // hides parent of quoted tweet
-        quotedTweet?.html.replace('<blockquote>', '<blockquote data-conversation="none">');
+        if ("error" in quotedTweet) {
+            quotedTweet.html = "<blockquote class='quotedTweetUnavailable'> This Tweet is unavailable. </blockquote>"
+        }
+        else {
+            //TODO check if this actually works or not
+            quotedTweet.html = quotedTweet.html.replace('<blockquote ', '<blockquote data-conversation="none" ');
+        }
     }
     //TODO this should probably be done on fetch time (or dynamically from the frontend)
     tweetText = await expandTweetUrls({ tweetText, addAHrefTag: true });
     tweetText = hyperlinkHashTags(tweetText);
     tweetText = hyperlinkAts(tweetText);
     const cleanedTweet = {
+        "id": tweet.id,
         "text": tweetText,
         "media": media,
         "quotedhtml": quotedTweet?.html

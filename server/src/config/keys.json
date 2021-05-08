@@ -3,5 +3,10 @@
         "key": "",
         "secret": "",
         "bearer_token": ""
+    },
+    "mongodb": {
+        "username": "",
+        "password": "",
+        "dbname": ""
     }
 }
