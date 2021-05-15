@@ -7,6 +7,6 @@ module.exports = {
         return args;
       })
   },
-  publicPath: "/nodethreader",
+  publicPath: "/NodeThreader",
   outputDir: "dist"
 }
