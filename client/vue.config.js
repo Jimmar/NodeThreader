@@ -6,5 +6,7 @@ module.exports = {
         args[0].title = "Node Threader";
         return args;
       })
-  }
+  },
+  publicPath: "/nodethreader",
+  outputDir: "dist"
 }
