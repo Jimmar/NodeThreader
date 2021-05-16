@@ -66,21 +66,22 @@ async function threadFetchAPI(req, res) {
     let response = null;
     const urlFieldRaw = req.body?.urlField;
     let urlField = urlFieldRaw;
+
     urlField = !isNaN(urlField) ? `https://twitter.com/Twitter/status/${urlField}` : urlField;
+    //trims and removes path arguments
+    urlField = urlField.trim().split("?")[0];
+    //removes trailing backslash if exists
+    urlField = urlField.slice(-1) == "/" ? urlField.slice(0, -1) : urlField;
 
     if (!urlField || !validTwitterStatusUrl(urlField))
         response = { "status": "error", "error": "InvalidUrl", "extra": { "urlField": urlFieldRaw } };
 
     if (!response) {
-        urlField = urlField.trim();
-        //removes trailing backslash if exists
-        urlField = urlField.slice(-1) == "/" ? urlField.slice(0, -1) : urlField;
-
         try {
             const threadId = urlField.split("/").pop();
             const fullThread = await fetchThreadTweetsForTweetId(threadId);
 
-            if (fullThread === undefined)
+            if (fullThread == null)
                 response = { "status": "error", "error": "NoThreadForId", "extra": { "urlField": urlFieldRaw } };
             else {
                 const conversation_id = fullThread.data[0].conversation_id;
@@ -88,7 +89,7 @@ async function threadFetchAPI(req, res) {
             }
         } catch (error) {
             console.error(error);
-            response = { "status": "error", "error": error, "extra": { "urlField": urlFieldRaw } };
+            response = { "status": "error", "error": "InternalError", "error_debug": error.message, "extra": { "urlField": urlFieldRaw } };
         }
     }
     return res.send(JSON.stringify(response));
