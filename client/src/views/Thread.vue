@@ -57,7 +57,7 @@
                   :loop="media.type === 'animated_gif'"
                   controls
                   muted
-                  poster="{{media.preview_image_url}}"
+                  :poster="media.preview_image_url"
                 >
                   <source :src="media.variants[0].url" type="video/mp4" />
                 </video>
@@ -145,6 +145,7 @@ export default {
 .container-large-padding {
   padding-left: 7%;
   padding-right: 7%;
+  /* TODO container paddings needs to be changed from main bulma configs, need to stop using the cdn version */
 }
 
 .avatar-image {
@@ -177,8 +178,8 @@ hr {
 video {
   right: 0;
   bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+  /* TODO reapply this and manage to have it not change size when poster is smaller and center it*/
+  /* max-height: 720px; */
   width: auto;
   height: auto;
   z-index: -100;
