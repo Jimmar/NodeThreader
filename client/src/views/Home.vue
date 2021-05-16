@@ -55,6 +55,9 @@
 <script>
 import { verifyInput, fetchDataForTwUrl } from "../scripts/apis";
 import Spinner from "../components/Spinner";
+let errorsMap = {
+  NoThreadForId: "The referenced tweet is not part of a thread",
+};
 
 export default {
   name: "Home",
@@ -82,9 +85,8 @@ export default {
       try {
         verifyInput(this.urlField);
         let fetchedData = await fetchDataForTwUrl(this.urlField);
+
         if (fetchedData?.status === "ok") {
-          console.log("data fetched");
-          console.log(fetchedData.conversation_id);
           this.$router.push({
             name: "Thread",
             params: {
@@ -92,11 +94,12 @@ export default {
             },
           });
         } else {
+          console.log(fetchedData.error);
           throw Error(fetchedData.error);
         }
       } catch (error) {
         console.error(error);
-        this.errorField = error.message;
+        this.errorField = errorsMap[error.message] ?? error.message;
       }
 
       this.fetching = false;

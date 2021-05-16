@@ -42,7 +42,7 @@ export async function fetchThreadTweetsForTweetId(tweet_id) {
         const tweet = await api.getTweetWithTweetId(tweet_id);
         if ("errors" in tweet) {
             console.log(tweet.errors[0].detail);
-            throw "NoTweetForId";
+            throw Error("NoTweetForId");
         }
         const conversation_id = tweet.data[0].conversation_id;
         if (conversation_id != tweet_id) {
@@ -58,6 +58,7 @@ export async function fetchThreadTweetsForTweetId(tweet_id) {
         const replies = await api.searchUserTweetsWithConversationId(conversation_id, username);
 
         //if there aren't many replies, most likely need to get tweets recursively
+        //TODO handle this to show an indicator of trying for recursive fetch
         if (replies?.data?.length < 2 || replies?.meta?.result_count == 0)
             // cleanedThread = await getThreadTweetsForTweetIdRecursively(tweet_id);
             return null;
