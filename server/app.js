@@ -124,7 +124,7 @@ app.post("/api/thread/fetch", threadFetchAPI);
 app.get("/api/thread/fetchRecursive/:threadId", threadFetchRecursiveAPI);
 app.get("/api/thread/show/:threadId", threadAPI);
 app.get("/api/thread/latest/:threadId", threadLatestAPI);
-// =================== APIS ===================
+// =================== /APIS ===================
 
 //creates a data from thread to be sent to FE
 async function getDataForThread(fullThread) {

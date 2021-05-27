@@ -40,7 +40,11 @@
 
         <section>
           <div v-for="tweet in thread" :key="tweet.id" class="block tweet">
-            <div class="tweet-text is-size-4" v-html="tweet.text"></div>
+            <div
+              class="tweet-text is-size-4"
+              v-html="tweet.text"
+              dir="auto"
+            ></div>
 
             <div v-if="tweet.media?.length > 0" class="columns is-multiline">
               <div v-for="media in tweet.media" :key="media.url" class="column">
@@ -187,7 +191,7 @@ video {
   overflow: hidden;
   border-radius: 15px;
 }
-.section .spinner{
+.section .spinner {
   margin-top: 100px;
 }
 </style>
