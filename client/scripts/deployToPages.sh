@@ -11,6 +11,9 @@ npm run build
 
 cd ../dist
 
+# copy index as 404 to avoid page not found for non-home urls
+cp index.html 404.html
+
 echo Deploying ..
 echo "`date`"
 git init
