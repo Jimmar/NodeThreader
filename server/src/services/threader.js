@@ -230,14 +230,16 @@ export async function cleanTweetObject(tweet, mediaLibrary) {
     return cleanedTweet;
 }
 
-//TODO this whole thing should be done in the FE
+//TODO this might be made differently since twitter api provides those data and should be a simple replace
 export async function expandTweetUrls({ tweetText, removeSelfUrl = true, addAHrefTag = false }) {
     const urls = tweetText.match(/\s?https:\/\/t\.co\/\S+/g);
     if (urls && urls.length > 0) {
         let urlsMap = await Promise.all(urls.map(url => expandtcoUrl(url)));
 
         urls.forEach((url, i) => {
-            let replaceWith = (removeSelfUrl && urlsMap[i].startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
+            let replaceWith = url;
+            if (urlsMap[i] != null)
+                replaceWith = (removeSelfUrl && urlsMap[i].startsWith("https://twitter.com")) ? "" : ` ${urlsMap[i]}`;
             replaceWith = (addAHrefTag && replaceWith) ? ` <a href=${replaceWith.trim()}>${replaceWith.trim()}</a>` : replaceWith;
             tweetText = tweetText.replace(url, replaceWith);
         });
@@ -246,6 +248,7 @@ export async function expandTweetUrls({ tweetText, removeSelfUrl = true, addAHre
 }
 
 //TODO this should be done in the FE
+//TODO twitter.field=entities include those info, use that
 export function hyperlinkHashTags(tweetText) {
     const hashtagUrl = "https://twitter.com/hashtag";
     tweetText = tweetText.replace(/#(\S+)/g, `<a href=${hashtagUrl}/$1>#$1</a>`);
@@ -253,6 +256,7 @@ export function hyperlinkHashTags(tweetText) {
 }
 
 //TODO this should be done in the FE
+//TODO twitter.field=entities include those info, use that
 export function hyperlinkAts(tweetText) {
     const atUrl = "https://twitter.com";
     tweetText = tweetText.replace(/@(\S+)/g, `<a href=${atUrl}/$1>@$1</a>`);

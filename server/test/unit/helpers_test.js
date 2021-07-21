@@ -53,4 +53,12 @@ describe("expand a t.co url", () => {
     let expectedUrl = "https://youtu.be/1mLQ79-qJN8"
     deepStrictEqual(await expandtcoUrl(url), expectedUrl);
   }).timeout(5000);
+
+  it("t.co url to memoryOfKuwait", async () => {
+    let url = "https://t.co/u6Dyx4UmSy"
+    //BUG this is wrong, it should get expanded to http://memoryofkuwait.nlk.gov.kw/page/lry-ysy
+    let expectedUrl = null
+    deepStrictEqual(await expandtcoUrl(url), expectedUrl);
+  }).timeout(5000);
+  
 });
