@@ -41,10 +41,7 @@
             </button>
           </div>
         </div>
-        <p
-          class="help is-danger is-size-5"
-          :style="{ visibility: errorField ? 'visible' : 'hidden' }"
-        >
+        <p class="help is-danger is-size-5" :style="{ visibility: errorField ? 'visible' : 'hidden' }">
           {{ errorField || "wontshow" }}
         </p>
       </form>

@@ -1,57 +1,57 @@
 .container-large-padding {
-    padding-left: 20%;
-    padding-right: 20%;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
 .avatar-image {
-    width: 128px;
-    height: auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 128px;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .logo-container {
-    border-radius: 5px;
-    background-color: white;
-    color: black;
-    padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 10px;
 }
 
-.tweet .tweet-text{
-    font-family: "roboto";
-    margin-bottom: 5px;
-    white-space: pre-line;
+.tweet .tweet-text {
+  font-family: "roboto";
+  margin-bottom: 5px;
+  white-space: pre-line;
 }
 
-.tweet img{
-    border-radius: 5px;
-    min-width: 300px;
+.tweet img {
+  border-radius: 5px;
+  min-width: 300px;
 }
 
-hr{
-    position: relative; 
-    top: 20px; 
-    height: 6px; 
-    background: black; 
-    margin-bottom: 50px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+hr {
+  position: relative;
+  top: 20px;
+  height: 6px;
+  background: black;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.title-main{
-    padding-top: 2em;
-    font-family: "roboto";
-    font-size: 5em;
+.title-main {
+  padding-top: 2em;
+  font-family: "roboto";
+  font-size: 5em;
 }
 
 video {
-    right: 0; 
-    bottom: 0;
-    min-width: 100%; 
-    min-height: 100%;
-    width: auto; 
-    height: auto; 
-    z-index: -100;
-    background-size: cover;
-    overflow: hidden;
-    border-radius: 15px;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 15px;
 }
