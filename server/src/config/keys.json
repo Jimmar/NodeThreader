@@ -1,12 +1,12 @@
 {
-    "twitter": {
-        "key": "",
-        "secret": "",
-        "bearer_token": ""
-    },
-    "mongodb": {
-        "username": "",
-        "password": "",
-        "dbname": ""
-    }
+  "twitter": {
+    "key": "",
+    "secret": "",
+    "bearer_token": ""
+  },
+  "mongodb": {
+    "username": "",
+    "password": "",
+    "dbname": ""
+  }
 }
