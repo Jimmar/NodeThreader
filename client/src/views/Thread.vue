@@ -8,10 +8,7 @@
               <figure class="image is-128x128">
                 <img
                   class="is-rounded avatar-image"
-                  :src="
-                    author.profile_image_url ||
-                    require('@/assets/img/avatar.jpg')
-                  "
+                  :src="author.profile_image_url || require('@/assets/img/avatar.jpg')"
                 />
               </figure>
             </div>
@@ -23,16 +20,11 @@
                   </b>
                 </div>
                 <div class="row block">
-                  <a
-                    href="https://twitter.com/i/user/<%= author.id %>"
-                    target="_blank"
-                  >
+                  <a href="https://twitter.com/i/user/<%= author.id %>" target="_blank">
                     <b>@ {{ author.username }} </b>
                   </a>
                 </div>
-                <div class="row block" style="text-align: end">
-                  {{ thread.length }} tweets | {{ created_at }}
-                </div>
+                <div class="row block" style="text-align: end">{{ thread.length }} tweets | {{ created_at }}</div>
               </div>
             </div>
           </div>
@@ -40,11 +32,7 @@
 
         <section>
           <div v-for="tweet in thread" :key="tweet.id" class="block tweet">
-            <div
-              class="tweet-text is-size-4"
-              v-html="tweet.text"
-              dir="auto"
-            ></div>
+            <div class="tweet-text is-size-4" v-html="tweet.text" dir="auto"></div>
 
             <div v-if="tweet.media?.length > 0" class="columns is-multiline">
               <div v-for="media in tweet.media" :key="media.url" class="column">
@@ -53,9 +41,7 @@
                 </figure>
 
                 <video
-                  v-else-if="
-                    media.type == 'animated_gif' || media.type == 'video'
-                  "
+                  v-else-if="media.type == 'animated_gif' || media.type == 'video'"
                   class="is-size-12"
                   :autoplay="media.type === 'animated_gif'"
                   :loop="media.type === 'animated_gif'"
@@ -68,11 +54,7 @@
               </div>
             </div>
             <!--TODO find a way to show a spinner/loading till the widget loads-->
-            <div
-              v-if="tweet.quotedhtml"
-              class="column"
-              v-html="tweet.quotedhtml"
-            ></div>
+            <div v-if="tweet.quotedhtml" class="column" v-html="tweet.quotedhtml"></div>
           </div>
         </section>
         <hr />

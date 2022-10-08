@@ -1,5 +1,5 @@
 const BASE_URL =
-  process.env.VUE_APP_MODE == "Debug" ? "http://127.0.0.1:3000/api" : "https://node-threader-server.herokuapp.com/api";
+  process.env.VUE_APP_MODE == "Debug" ? "http://127.0.0.1:3000/api" : "https://node-threader-server.onrender.com/api";
 
 export async function fetchDataForTwUrl(url) {
   const fetchUrl = `${BASE_URL}/thread/fetch`;
