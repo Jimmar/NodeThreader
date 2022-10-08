@@ -20,6 +20,6 @@ git init
 git add -A
 git commit -m "deployed at `date`"
 
-git push -f https://github.com/Jimmar/NodeThreader.git master:gh-pages
+git push -f https://github.com/Jimmar/NodeThreader.git main:gh-pages
 
 cd -
